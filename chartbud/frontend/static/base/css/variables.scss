@@ -5,8 +5,9 @@ $shadow: rgba(0,0,0,0.1);
 $white-shadow: rgba(255,255,255,0.1);
 
 // background variables
-$aqua: #92FFC0;
-$midnight: #002661;
+$midnight: #051f3a;
+$navy: #123051;
+$clouds: #ecf0f1;
 
 // accent variables
 $emerald: #2ecc71;
@@ -17,3 +18,31 @@ $alizarin: #e74c3c;
 $break-large: 900px;
 $break-medium: 700px;
 $break-small: 500px;
+
+
+
+// background styles
+.white-background{color:$charcoal !important;}
+.clouds-background{background-color:$clouds !important;}
+.charcoal-background{color:$charcoal !important; background-color:$charcoal !important;}
+.shadow-background{color:$shadow !important; background-color:$shadow !important;}
+.white-shadow-background{color:$white-shadow !important; background-color:$white-shadow !important;}
+.navy-background{color:$navy !important; background-color:$navy !important;}
+.midnight-background{color:$midnight !important; background-color:$midnight !important;}
+.emerald-background{color:$emerald !important; background-color:$emerald !important;}
+.peter-river-background{color:$peter-river !important; background-color:$peter-river !important;}
+.alizarin-background{color:$alizarin !important; background-color:$alizarin !important;}
+
+// text styles
+.white{color:$white !important;}
+.clouds{color:$clouds !important;}
+.charcoal{color:$charcoal !important;}
+.shadow{color:$shadow !important;}
+.white-shadow{color:$white-shadow !important;}
+.navy{color:$navy !important;}
+.midnight{color:$midnight !important;}
+.emerald{color:$emerald !important;}
+.peter-river{color:$peter-river !important;}
+.alizarin{color:$alizarin !important;}
+
+

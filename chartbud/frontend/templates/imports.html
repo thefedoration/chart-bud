@@ -7,5 +7,15 @@
 
 <!-- javascripts -->
 {% compress js %}
+    <!-- vendored in packages for angular -->
+    <script type='text/javascript' src="{{STATIC_URL}}base/js/vendored/jquery-3.1.0.min.js"></script>
+    <script type='text/javascript' src="{{STATIC_URL}}base/js/vendored/angular-1.5.8.min.js"></script>
+    <script type='text/javascript' src="{{STATIC_URL}}base/js/vendored/angular-uirouter-0.2.10.min.js"></script>
     
+    <!-- other vendored packages -->
+    <script type='text/javascript' src="{{STATIC_URL}}base/js/vendored/remodal-1.1.1.js"></script>
+
+    <!-- utils -->
+    <script type='text/javascript' src="{{STATIC_URL}}base/js/helpers.js"></script>
+    <script type='text/javascript' src="{{STATIC_URL}}base/js/polyfills.js"></script>
 {% endcompress %}

@@ -1,59 +1,43 @@
 html{
-    background: $midnight;
-    background-image: linear-gradient( 135deg, $midnight -50%, $aqua 350%);
-    color: $white;
+
 }
 
-body{
-    
+body{    
+    background:$clouds;
+    color: $charcoal;
 }
 
 #header{
     background:$white;
-    color: $charcoal;
-    height:50px;
-    position:fixed;
-    top:0;
-    left:0;
-    right:0;
+    height:60px;
     box-shadow:0 1px 2px $shadow;
 }
 
-#page-content{
-    padding-top:70px;
-    width:100%;
+#footer{
+    background:$clouds;
+    height:32px;
+    box-shadow:0 -1px 2px $shadow;
 }
 
-#footer{
-    color:$white;
-    background:$charcoal;
-
-    .columns{
-        padding:10px 0;
-        
-        .column{
-            -webkit-flex: 0 0 225px;
-            flex: 0 0 225px;
-            
-            .links{
-                line-height:1.5em;
-            }
-            
-            &:last-child{
-                margin-left:auto;
-            }
-            
-            &.social-links{
-                min-width:60px;
-                @media(max-width:$break-large){
-                    text-align:left;
-                    flex:1;
-                    margin-left:0;
-                }
-            }
-        }
+#content{
+    color: $white;
+    background-color: $midnight;
+    
+    background: -webkit-gradient(linear, left top, right top, from($midnight), to($navy));
+    background: -webkit-linear-gradient(left, $midnight, $navy);
+    background: -o-linear-gradient(left, $midnight 0, $navy 100%);
+    background: linear-gradient(90deg, $midnight 0, $navy);
+    
+    &.fixed-height{
+        height: calc(100% - 92px);
+        overflow:scroll;
     }
 }
+
+
+
+// UTIL CLASSES
+// /////////////////////////////////////
 
 button{
     padding:10px 30px;
@@ -70,11 +54,6 @@ button{
         width:100%;
     }
 }
-
-
-
-// UTIL CLASSES
-// /////////////////////////////////////
 
 .nav-items{
     min-height:36px;
@@ -95,27 +74,14 @@ button{
     }
 }
 
-.page-wrap, .content-wrap{
-    margin:0 auto;
-    padding:10px 20px;
-    width:100%;
-    
-    &.main-content{
-        padding: 40px 20px;
-        min-height:400px;
-        
-        .main-content-sidebar{
-            min-width:200px;
-        }
-    }
-}
-
 .page-wrap{
-    max-width:1080px;
+    padding:10px;
+    width:100%;
 }
 
 .content-wrap{
-    max-width:900px;
+    margin:10px auto;
+    max-width:1080px;
 }
 
 .contain-image, .cover-image{
@@ -135,21 +101,21 @@ button{
     border-radius:100%;
 }
 
-i{
-    &.with-margin{
-        margin-left:5px;
-        margin-right:5px;
-    }
-}
-span{
-    &.notification{
-        margin-left:5px;
-        font-weight:bold;
-        font-size:0.8em;
-        border-radius:2px;
-        padding:2px 4px;
-    }
-}
+// i{
+//     &.with-margin{
+//         margin-left:5px;
+//         margin-right:5px;
+//     }
+// }
+// span{
+//     &.notification{
+//         margin-left:5px;
+//         font-weight:bold;
+//         font-size:0.8em;
+//         border-radius:2px;
+//         padding:2px 4px;
+//     }
+// }
 
 .uppercase{
     text-transform: uppercase;
@@ -270,7 +236,7 @@ span{
     margin: 5px;
 }
 
-.pad-bottom {
-    padding-bottom: 15px;
+.margin-10 {
+    margin: 10px;
 }
 
