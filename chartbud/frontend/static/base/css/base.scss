@@ -1,127 +1,22 @@
-/*
- * BASE STYLES FOR LAYOUTS USED IN BOTH EXTERNAL AND INTERNAL PAGES
- */ 
- 
-body{
-    background:$mine-shaft;
+html{
+    background: $midnight;
+    background-image: linear-gradient( 135deg, $midnight -50%, $aqua 350%);
+    color: $white;
 }
 
-#content{
-    background:$desert-storm;
-    overflow-x: hidden;
+body{
+    
 }
- 
+
 #header{
-    height:70px;
+    background:$white;
+    color: $charcoal;
+    height:50px;
     position:fixed;
     top:0;
     left:0;
     right:0;
-    background:$white;
-    z-index:100;
-    display: table-row;
-    box-shadow:0 1px 2px rgba(0,0,0,0.25);
-    
-    .header-wrap{
-        
-        #header-action{
-            
-            height:100%;
-            width:200px;
-            text-align:center;
-            line-height:70px;
-            font-weight:900;
-            cursor:pointer;
-        }
-    }
-    
-    #logo-container{
-        height:50px;
-        -webkit-margin-end:20px;
-        
-        #logo{
-            max-height:50px;
-            max-width:150px;
-        }
-        
-    }
-    
-    #header-nav{
-        #primary-nav{
-
-        }
-        
-        #secondary-nav{
-            #dropdown-menu-container{
-                
-            }
-        }
-    }
-    
-    #header-icon-container{
-        text-align:end;
-        i{
-            padding: 10px;
-            font-size: 26px;
-            cursor:pointer;
-        }
-    }
-    
-    // header nav overrides in sidebar for mobile view
-    #header-nav{
-        &.open{
-            position:fixed;
-            top:70px;
-            left:0;
-            width:250px;
-            bottom:0;
-            background:$charcoal;
-            z-index:1000;
-            padding-top:20px;
-            box-shadow: 0 3px 5px rgba(0,0,0,0.25);
-            
-            #primary-nav, #secondary-nav{
-                display:block !important;
-                height:auto;
-                padding:0;
-                
-                .nav-item{
-                    display:block;
-                    width: 100%;
-                    text-align: center;
-                    margin: 10px 0;
-                    font-weight:bold;
-                    color:white;
-                    
-                    &.current{
-                        border-bottom-color:transparent;
-                    }
-                }
-                button{
-                    margin:0 !important;
-                }
-            }
-            #secondary-nav{
-                margin-top:-10px;
-            }
-        }
-    }
-    
-    #sidebar-shadow{
-        display:none;
-        cursor:pointer;
-        background:rgba(0,0,0,0.5);
-        position:fixed;
-        top:70px;
-        left:0;
-        right:0;
-        bottom:0;
-        z-index:100;
-        
-        &.open{
-            display:block;
-        }
-    }
+    box-shadow:0 1px 2px $shadow;
 }
 
 #page-content{
@@ -131,7 +26,7 @@ body{
 
 #footer{
     color:$white;
-    background:$mine-shaft;
+    background:$charcoal;
 
     .columns{
         padding:10px 0;
@@ -181,35 +76,6 @@ button{
 // UTIL CLASSES
 // /////////////////////////////////////
 
-// full-screen pages for 404 and 500s
-.error-page{
-    position:fixed;
-    height:100%;
-    width:100%;
-    display:flex;
-    justify-content: center;
-    flex-direction: column;;
-    
-    .message{
-        width:500px;
-        max-width:100%;
-        margin:0 auto;
-        text-align:center;
-        
-        h1, h2, h3{
-            margin-top:0;
-            text-shadow:0 1px 2px rgba(0, 0, 0, 0.75);
-        }
-        
-        h1{
-            &.supersized{
-                font-size: 150px;
-                line-height: 1em;
-            }
-        }
-    }
-}
-
 .nav-items{
     min-height:36px;
     
@@ -224,24 +90,8 @@ button{
         }
         
         &.current, &:hover{
-            border-bottom:2px solid $watermelon !important;
+            border-bottom:2px solid $peter-river !important;
         }
-    }
-}
-
-.application-messages{
-    position:fixed;
-    top:0;
-    width:100%;
-    z-index:1000;
-    
-    .application-message{
-        padding:10px;
-        background:$alizarin;
-        color:$white;
-        font-weight:bold;
-        text-align:center;
-        font-size:16px;
     }
 }
 
@@ -416,23 +266,6 @@ span{
     }
 }
 
-.shadow{
-    position:absolute;
-    top:0;
-    right:0;
-    bottom:0;
-    left:0;
-    background-color:black;
-    opacity:0.5;
-    
-    &.light{
-        opacity:0.25;
-    }
-    &.heavy{
-        opacity:0.75;
-    }
-}
-
 .margin-5 {
     margin: 5px;
 }
@@ -441,17 +274,3 @@ span{
     padding-bottom: 15px;
 }
 
-.mui-textfield > input:focus {
-  border-color: #00BCD7 !important;
-}
-
-// .svg-fill-path{
-//     background:white;
-//     svg{
-//         background:blue;
-//         path{
-//             color:inherit;
-//             fill:green;
-//         }
-//     }
-// }

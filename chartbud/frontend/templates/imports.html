@@ -1,0 +1,11 @@
+{% load compress %}
+
+<!-- stylesheets -->
+{% compress css %}
+    <link href="{{STATIC_URL}}base/css/_compiled.scss" rel="stylesheet" type="text/x-scss"/>
+{% endcompress %}
+
+<!-- javascripts -->
+{% compress js %}
+    
+{% endcompress %}
