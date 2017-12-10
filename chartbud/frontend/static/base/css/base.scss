@@ -21,12 +21,12 @@ body{
 
 #content{
     color: $white;
-    background-color: $midnight;
+    background-color: $bg1;
     
-    background: -webkit-gradient(linear, left top, right top, from($midnight), to($navy));
-    background: -webkit-linear-gradient(left, $midnight, $navy);
-    background: -o-linear-gradient(left, $midnight 0, $navy 100%);
-    background: linear-gradient(90deg, $midnight 0, $navy);
+    background: -webkit-gradient(linear, left top, right top, from($bg1), to($bg2));
+    background: -webkit-linear-gradient(left, $bg1, $bg2);
+    background: -o-linear-gradient(left, $bg1 0, $bg2 250%);
+    background: linear-gradient(135deg, $bg1 0, $bg2 250%);
     
     &.fixed-height{
         height: calc(100% - 92px);
@@ -240,3 +240,10 @@ button{
     margin: 10px;
 }
 
+.padding-5 {
+    padding: 5px;
+}
+
+.padding-10 {
+    padding: 10px;
+}

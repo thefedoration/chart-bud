@@ -2,19 +2,49 @@
 
 var chartsServices = angular.module('chartsServices', []);
 
-// chartsServices.factory('Auth', ['$http',
-//     function($http){
-//       	var AuthMethods = {};
-//       	AuthMethods.login = function(user) {
-//     		return $http({
-//     			method: 'POST',
-//     			url: '/auth/login/',
-//     			data: user
-//     		});
-//     	}
-//         VisitorMethods.getData = function() {
-// 			return $http.get('/api2/tracking/visitor/');
-// 		}
-//     	return AuthMethods;
-// }]);
+chartsServices.factory('Exchange', ['$http',
+    function($http){
+      	var ExchangeMethods = {};
+      	// AuthMethods.filterExchanges = function(query) {
+    	// 	return $http({
+    	// 		method: 'POST',
+    	// 		url: '/auth/login/',
+    	// 		data: user
+    	// 	});
+    	// }
+        ExchangeMethods.filter = function(params) {
+			return $http.get('/api/stocks/exchanges/'+toQueryString(params));
+		}
+    	return ExchangeMethods;
+}]);
+
+
+chartsServices.factory('Company', ['$http',
+    function($http){
+      	var CompanyMethods = {};
+        CompanyMethods.filter = function(params) {
+			return $http.get('/api/stocks/companies/'+toQueryString(params));
+		}
+    	return CompanyMethods;
+}]);
+
+
+chartsServices.factory('Tag', ['$http',
+    function($http){
+      	var TagMethods = {};
+        TagMethods.filter = function(params) {
+			return $http.get('/api/stocks/tags/'+toQueryString(params));
+		}
+    	return TagMethods;
+}]);
+
+
+chartsServices.factory('Stock', ['$http',
+    function($http){
+      	var StockMethods = {};
+        StockMethods.filter = function(params) {
+			return $http.get('/api/stocks/stocks/'+toQueryString(params));
+		}
+    	return StockMethods;
+}]);
 

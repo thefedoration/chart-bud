@@ -1,6 +1,79 @@
 .charts-page{
     .charts-sidebar{
-    
+        width:300px;
+        border-right:1px solid $white-shadow;
+        
+        .sidebar-section{
+            margin-bottom:10px;
+            padding-bottom:10px;
+            
+            .filter{
+                margin-top:10px;
+                padding:10px;
+                border:1px solid $white-shadow;
+                border-radius:3px;
+                
+                &.dropdown{
+                    position:relative;
+                    
+                    .dropdown-label{
+                        font-weight:bold;
+                        i{
+                            float:right;
+                        }
+
+                        .notification{
+                            margin-left: 8px;
+                            font-size: 11px;
+                            padding: 1px 8px;
+                            border-radius: 8px;
+                        }
+                    }
+                    
+                    .options{
+                        position:absolute;
+                        top:100%;
+                        left:-1px;
+                        right:-1px;
+                        display:none;
+                        max-height:200px;
+                        overflow:auto;
+                        z-index:100;
+                        padding:10px;
+                        box-shadow:0 1px 2px $shadow;
+                        border-top:1px solid $shadow;
+                        border-radius:3px;
+                        
+                        .option{
+                            margin-bottom:5px;
+                            label{
+                                cursor:pointer;
+                            }
+                            
+                            &:last-child{
+                                margin-bottom:0;
+                            }
+                            input{
+                                cursor:pointer;
+                                margin-right:5px;
+                            }
+                        }
+                    }
+                    
+                    &:hover{
+                        background:$white;
+                        color:$charcoal;
+                        .options{
+                            display:block;
+                        }
+                    }
+                }
+                &.search{
+                
+                }
+            }
+            
+        }
     }
     
     .charts-content{

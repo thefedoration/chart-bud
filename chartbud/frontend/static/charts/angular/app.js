@@ -10,6 +10,7 @@ var chartsApp = angular.module('chartsApp', [
     'chartsServices',
 ]);
 var thisApp = chartsApp;
+var sector = "cannabis"; // temp
 
 thisApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     // $urlRouterProvider.otherwise("/");
@@ -20,14 +21,14 @@ thisApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
     // states are set up in submodules
     $stateProvider
         .state('main', {
-            url: '/',
+            url: '/?exchanges&tags',
             templateUrl: '/static/charts/html/main.html',
             controller: 'mainCtrl',
-            // resolve: {
-            //     visitor: function(Visitor) {
-            //         return Visitor.getData();
-            //     },
-            // },
+        })
+        .state('main.stock', {
+            url: ':ticker/',
+            templateUrl: '/static/charts/html/stock.html',
+            controller: 'stockCtrl',
         })
 });
 
