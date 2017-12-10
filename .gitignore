@@ -1,5 +1,5 @@
 .DS_Store
 *.pyc
-chartbud/db.sqlite3
+*.sqlite3
 chartbud/static/
 

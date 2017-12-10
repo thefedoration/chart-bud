@@ -1,0 +1,457 @@
+/*
+ * BASE STYLES FOR LAYOUTS USED IN BOTH EXTERNAL AND INTERNAL PAGES
+ */ 
+ 
+body{
+    background:$mine-shaft;
+}
+
+#content{
+    background:$desert-storm;
+    overflow-x: hidden;
+}
+ 
+#header{
+    height:70px;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    background:$white;
+    z-index:100;
+    display: table-row;
+    box-shadow:0 1px 2px rgba(0,0,0,0.25);
+    
+    .header-wrap{
+        
+        #header-action{
+            
+            height:100%;
+            width:200px;
+            text-align:center;
+            line-height:70px;
+            font-weight:900;
+            cursor:pointer;
+        }
+    }
+    
+    #logo-container{
+        height:50px;
+        -webkit-margin-end:20px;
+        
+        #logo{
+            max-height:50px;
+            max-width:150px;
+        }
+        
+    }
+    
+    #header-nav{
+        #primary-nav{
+
+        }
+        
+        #secondary-nav{
+            #dropdown-menu-container{
+                
+            }
+        }
+    }
+    
+    #header-icon-container{
+        text-align:end;
+        i{
+            padding: 10px;
+            font-size: 26px;
+            cursor:pointer;
+        }
+    }
+    
+    // header nav overrides in sidebar for mobile view
+    #header-nav{
+        &.open{
+            position:fixed;
+            top:70px;
+            left:0;
+            width:250px;
+            bottom:0;
+            background:$charcoal;
+            z-index:1000;
+            padding-top:20px;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.25);
+            
+            #primary-nav, #secondary-nav{
+                display:block !important;
+                height:auto;
+                padding:0;
+                
+                .nav-item{
+                    display:block;
+                    width: 100%;
+                    text-align: center;
+                    margin: 10px 0;
+                    font-weight:bold;
+                    color:white;
+                    
+                    &.current{
+                        border-bottom-color:transparent;
+                    }
+                }
+                button{
+                    margin:0 !important;
+                }
+            }
+            #secondary-nav{
+                margin-top:-10px;
+            }
+        }
+    }
+    
+    #sidebar-shadow{
+        display:none;
+        cursor:pointer;
+        background:rgba(0,0,0,0.5);
+        position:fixed;
+        top:70px;
+        left:0;
+        right:0;
+        bottom:0;
+        z-index:100;
+        
+        &.open{
+            display:block;
+        }
+    }
+}
+
+#page-content{
+    padding-top:70px;
+    width:100%;
+}
+
+#footer{
+    color:$white;
+    background:$mine-shaft;
+
+    .columns{
+        padding:10px 0;
+        
+        .column{
+            -webkit-flex: 0 0 225px;
+            flex: 0 0 225px;
+            
+            .links{
+                line-height:1.5em;
+            }
+            
+            &:last-child{
+                margin-left:auto;
+            }
+            
+            &.social-links{
+                min-width:60px;
+                @media(max-width:$break-large){
+                    text-align:left;
+                    flex:1;
+                    margin-left:0;
+                }
+            }
+        }
+    }
+}
+
+button{
+    padding:10px 30px;
+    border: none;
+    border-radius: 2px;
+    font-weight: 800;
+    text-align:center;
+    cursor:pointer;
+    
+    &.fattie{
+        padding:15px 40px;
+    }
+    &.full-width{
+        width:100%;
+    }
+}
+
+
+
+// UTIL CLASSES
+// /////////////////////////////////////
+
+// full-screen pages for 404 and 500s
+.error-page{
+    position:fixed;
+    height:100%;
+    width:100%;
+    display:flex;
+    justify-content: center;
+    flex-direction: column;;
+    
+    .message{
+        width:500px;
+        max-width:100%;
+        margin:0 auto;
+        text-align:center;
+        
+        h1, h2, h3{
+            margin-top:0;
+            text-shadow:0 1px 2px rgba(0, 0, 0, 0.75);
+        }
+        
+        h1{
+            &.supersized{
+                font-size: 150px;
+                line-height: 1em;
+            }
+        }
+    }
+}
+
+.nav-items{
+    min-height:36px;
+    
+    .nav-item{
+        padding:10px 0;
+        margin:0 20px;
+        border-bottom:2px solid transparent;
+        cursor:pointer;
+        
+        .span{
+            vertical-align: middle;
+        }
+        
+        &.current, &:hover{
+            border-bottom:2px solid $watermelon !important;
+        }
+    }
+}
+
+.application-messages{
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:1000;
+    
+    .application-message{
+        padding:10px;
+        background:$alizarin;
+        color:$white;
+        font-weight:bold;
+        text-align:center;
+        font-size:16px;
+    }
+}
+
+.page-wrap, .content-wrap{
+    margin:0 auto;
+    padding:10px 20px;
+    width:100%;
+    
+    &.main-content{
+        padding: 40px 20px;
+        min-height:400px;
+        
+        .main-content-sidebar{
+            min-width:200px;
+        }
+    }
+}
+
+.page-wrap{
+    max-width:1080px;
+}
+
+.content-wrap{
+    max-width:900px;
+}
+
+.contain-image, .cover-image{
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    width:100%;
+    height:100%;
+}
+.contain-image{
+    background-size: contain;
+}
+
+.cover-image{
+    background-size: cover;
+}
+.circular{
+    border-radius:100%;
+}
+
+i{
+    &.with-margin{
+        margin-left:5px;
+        margin-right:5px;
+    }
+}
+span{
+    &.notification{
+        margin-left:5px;
+        font-weight:bold;
+        font-size:0.8em;
+        border-radius:2px;
+        padding:2px 4px;
+    }
+}
+
+.uppercase{
+    text-transform: uppercase;
+}
+.lowercase{
+    text-transform: lowercase;
+}
+.underlined {
+    text-decoration: underline;
+}
+.clickable{
+    cursor:pointer;
+}
+.linkable{
+    cursor:pointer;
+    &:hover{
+        text-decoration: underline;
+    }
+}
+.dim{
+    opacity:0.7;
+    
+    &.extra{
+        opacity:0.4;
+    }
+    
+    &.light{
+        opacity:0.9;
+    }
+    
+    &.hoverable{
+        &:hover{
+            opacity:1;
+        }
+    }
+}
+.full-opacity{
+    opacity:1 !important;
+}
+
+.left-align{
+    text-align: start;
+}
+.center-align{
+    text-align: center;
+}
+.right-align{
+    text-align: end;
+}
+.bold{
+    font-weight:bold;
+}
+.italic {
+    font-style: italic;
+}
+.bigger{
+    font-size:1.2em;
+}
+.extra-big{
+    font-size:1.5em;
+}
+.smaller{
+    font-size:0.8em;
+}
+.extra-small{
+    font-size:0.6em;
+}
+.disabled{
+    opacity:0.5;
+    pointer-events:none;
+}
+.hide-large{
+    @media(max-width:$break-large){
+        display:none !important;
+    }
+}
+.hide-medium{
+    @media(max-width:$break-medium){
+        display:none !important;
+    }
+}
+.hide-small{
+    @media(max-width:$break-small){
+        display:none !important;
+    }
+}
+.remove-padding-small{
+    @media(max-width:$break-small){
+        padding-left: 0 !important;
+    }
+}
+.remove-margin-small{
+    @media(max-width:$break-small){
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+}
+.show-large{
+    display:none;
+    @media(max-width:$break-large){
+        display:block !important;
+    }
+}
+.show-medium{
+    display:none;
+    @media(max-width:$break-medium){
+        display:block !important;
+    }
+}
+.show-small{
+    display:none;
+    @media(max-width:$break-small){
+        display:block !important;
+    }
+}
+
+.shadow{
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background-color:black;
+    opacity:0.5;
+    
+    &.light{
+        opacity:0.25;
+    }
+    &.heavy{
+        opacity:0.75;
+    }
+}
+
+.margin-5 {
+    margin: 5px;
+}
+
+.pad-bottom {
+    padding-bottom: 15px;
+}
+
+.mui-textfield > input:focus {
+  border-color: #00BCD7 !important;
+}
+
+// .svg-fill-path{
+//     background:white;
+//     svg{
+//         background:blue;
+//         path{
+//             color:inherit;
+//             fill:green;
+//         }
+//     }
+// }

@@ -20,6 +20,7 @@ from chartbud import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.home, name="home"),
-    url(r'^', include('stocks.urls'))
+
+    # serves up frontend
+    url(r'^', include('frontend.urls'))
 ]
