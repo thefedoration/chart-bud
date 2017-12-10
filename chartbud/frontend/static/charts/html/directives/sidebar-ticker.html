@@ -1,0 +1,22 @@
+<div class="icon-container self-center">
+    <i class="fa gold dim hoverable" ng-click="stock.favorite = !stock.favorite"
+        ng-class="{'fa-star': stock.favorite, 'fa-star-o': !stock.favorite}"></i>
+</div>
+<div class="name-container flex">
+    <h5 class="uppercase margin-0">{{stock.ticker}}</h5>
+    <div class="dim">{{stock.company.name}}</div>
+</div>
+<div class="price-container">
+    <h5 class="uppercase margin-0 center-align">
+        {{stock.exchange.currency.character}}12.55
+    </h5>
+    <div class="smaller dim center-align">{{stock.exchange.currency.symbol}}</div>
+</div>
+<div class="change-container">
+    <h5 class="emerald margin-0 center-align">
+        +10.23%
+    </h5>
+    <div class="emerald smaller dim center-align">
+        +0.15
+    </div>
+</div>

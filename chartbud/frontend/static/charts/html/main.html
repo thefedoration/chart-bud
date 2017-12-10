@@ -1,48 +1,21 @@
-<div class="charts-sidebar padding-10">
+<div class="charts-sidebar padding-10 layout vertical">
     <div class="sidebar-section">
         <label class="bold dim extra uppercase">Filters</label>
         
-        <div class="filter dropdown">
-            <div class="dropdown-label">
-                Exchanges
-                <span class="notification peter-river-background"
-                    ng-if="exchanges.current.length">{{exchanges.current.length}}</span>
-                <i class="fa fa-angle-down"></i>
-            </div>
-            <div class="options white-background charcoal">
-                <div class="option" ng-repeat="exchange in exchanges.results">
-                    <label>
-                        <input type="checkbox" ng-model="exchange.current" ng-change="currentExchangeChanged(exchange)">
-                        {{exchange.symbol}}
-                        <span class="dim" ng-if="exchange.currency">
-                            ({{exchange.currency.character}}{{exchange.currency.symbol}})
-                        </span>
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="filter dropdown">
-            <div class="dropdown-label">
-                Tags
-                <span class="notification peter-river-background"
-                    ng-if="tags.current.length">{{tags.current.length}}</span>
-                <i class="fa fa-angle-down"></i>
-            </div>
-            <div class="options white-background charcoal">
-                <div class="option" ng-repeat="tag in tags.results">
-                    <label>
-                        <input type="checkbox" ng-model="tag.current" ng-change="currentTagChanged(tag)">
-                        {{tag.name}}
-                    </label>
-                </div>
-            </div>
-        </div>
+        <exchange-filter class="filter dropdown"></exchange-filter>
+        <tag-filter class="filter dropdown"></tag-filter>
     </div>
-    <div class="sidebar-section">
+    <div class="sidebar-section flex layout vertical">
         <label class="bold dim extra uppercase">Tickers</label>
         
-        <div class="filter search">
-            Search
+        <div class="filter search layout horizontal">
+            <input class="flex" ng-model="searchText" placeholder="Search"></input>
+            <i class="fa fa-search"></i>
+        </div>
+        
+        <div class="tickers flex">
+            <sidebar-ticker stock="stock" ng-repeat="stock in stocks.results | filter:searchText"
+                class="layout horizontal"></sidebar-ticker>
         </div>
     </div>
 </div>

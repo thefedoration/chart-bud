@@ -13,12 +13,9 @@ chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', 'Exc
         ///////////////////////////////
         
         $scope.initializePage = function(){
-            $scope.getExchanges(function(){
-                console.log("exchanges")
-            });
-            $scope.getTags(function(){
-                console.log("tags")
-            });
+            $scope.getExchanges();
+            $scope.getTags();
+            $scope.filterStocks();
         }
         
         // assembles the initial set of exchanges for this sector
@@ -64,10 +61,6 @@ chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', 'Exc
             .success(function(data){
                 $scope.stocks.loading = false;
                 $scope.stocks.results = data.results;
-
-                if (callback){
-                    return callback();
-                }
             })
         }
         

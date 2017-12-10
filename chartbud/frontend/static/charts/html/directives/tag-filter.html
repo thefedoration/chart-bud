@@ -1,0 +1,14 @@
+<div class="dropdown-label">
+    Tags
+    <span class="notification peter-river-background"
+        ng-if="tags.current.length">{{tags.current.length}}</span>
+    <i class="fa fa-angle-down"></i>
+</div>
+<div class="options white-background charcoal">
+    <div class="option" ng-repeat="tag in tags.results">
+        <label>
+            <input type="checkbox" ng-model="tag.current" ng-change="currentTagChanged(tag)">
+            {{tag.name}}
+        </label>
+    </div>
+</div>

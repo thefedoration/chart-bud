@@ -54,12 +54,13 @@ class TagSerializer(serializers.ModelSerializer):
 
 class StockSerializer(serializers.ModelSerializer):
     company = CompanySerializer()
+    exchange = ExchangeSerializer()
 
     class Meta:
         model = Stock
         fields = (
             'ticker',
-            # 'exchange',
+            'exchange',
             'company',
         )
 

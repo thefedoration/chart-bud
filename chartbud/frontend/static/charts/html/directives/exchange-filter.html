@@ -1,0 +1,17 @@
+<div class="dropdown-label">
+    Exchanges
+    <span class="notification peter-river-background"
+        ng-if="exchanges.current.length">{{exchanges.current.length}}</span>
+    <i class="fa fa-angle-down"></i>
+</div>
+<div class="options white-background charcoal">
+    <div class="option" ng-repeat="exchange in exchanges.results">
+        <label>
+            <input type="checkbox" ng-model="exchange.current" ng-change="currentExchangeChanged(exchange)">
+            {{exchange.symbol}}
+            <span class="dim" ng-if="exchange.currency">
+                ({{exchange.currency.character}}{{exchange.currency.symbol}})
+            </span>
+        </label>
+    </div>
+</div>
