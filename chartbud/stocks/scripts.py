@@ -11,9 +11,10 @@ def upload_initial_data():
     
     # create currency
     currency, _ = Currency.objects.get_or_create(symbol='CAD', defaults={'character':'$', 'name':'Canadian Dollar'})
+    us_currency, _ = Currency.objects.get_or_create(symbol='USD', defaults={'character':'$', 'name':'US Dollar'})
     
     # OTC exchange
-    otc, _ = Exchange.objects.get_or_create(symbol='OTC', defaults={'name':'OTC', 'currency':currency})
+    otc, _ = Exchange.objects.get_or_create(symbol='OTC', defaults={'name':'OTC', 'currency': us_currency})
     
     # iterate over each item in our table, make the items
     for row in data["data"][0][1:]:

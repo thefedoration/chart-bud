@@ -37,15 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     # our apps
     'chartbud',
     'stocks',
     'frontend',
-    
+
     # installed packages
     'compressor',
-    # 'djangorestframework',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -158,3 +158,9 @@ COMPRESS_JS_FILTERS = [
 COMPRESS_PRECOMPILERS = (
     ('text/x-scss', 'django_libsass.SassCompiler'),
 )
+
+# rest framework defaults
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100
+}
