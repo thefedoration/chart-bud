@@ -84,16 +84,16 @@
                         width:100%;
                         
                         &::-webkit-input-placeholder {
-                          color:$white;
+                          color:rgba(255,255,255,0.5);
                         }
                         &::-moz-placeholder {
-                          color:$white;
+                          color:rgba(255,255,255,0.5);
                         }
                         &:-ms-input-placeholder {
-                          color:$white;
+                          color:rgba(255,255,255,0.5);
                         }
                         &:-moz-placeholder {
-                          color:$white;
+                          color:rgba(255,255,255,0.5);
                         }
                     }
                     i{
@@ -113,6 +113,7 @@
                     padding:5px 0;
                     border-radius:3px;
                     border-bottom: 1px solid $white-shadow;
+                    min-height:64px;
                     cursor:pointer;
                     
                     &:hover{
@@ -133,11 +134,13 @@
                     .name-container{
                         padding:10px 0;
                     }
-                    .change-container{
-                        padding:10px;
-                    }
                     .price-container{
                         padding:10px;
+                        min-width:75px;
+                    }
+                    .change-container{
+                        padding:10px;
+                        min-width:75px;
                     }
                 }
             }

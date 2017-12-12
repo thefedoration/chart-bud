@@ -3,6 +3,7 @@ $white: #ffffff;
 $charcoal: #333333;
 $shadow: rgba(0,0,0,0.1);
 $white-shadow: rgba(255,255,255,0.1);
+$white-dim: rgba(255,255,255,0.25);
 
 // background variables
 $bg1: #123051;
@@ -32,6 +33,7 @@ $break-small: 500px;
 .peter-river-background{color:$white !important; background-color:$peter-river !important;}
 .alizarin-background{color:$white !important; background-color:$alizarin !important;}
 .gold-background{color:$white !important; background-color:$gold !important;}
+.white-dim-background{color:$white !important; background-color:$white-dim !important;}
 
 // text styles
 .white{color:$white !important;}
@@ -43,5 +45,6 @@ $break-small: 500px;
 .peter-river{color:$peter-river !important;}
 .alizarin{color:$alizarin !important;}
 .gold{color:$gold !important;}
+.white-dim{color:$white-dim !important;}
 
 

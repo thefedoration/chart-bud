@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # installed packages
     'compressor',
     'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

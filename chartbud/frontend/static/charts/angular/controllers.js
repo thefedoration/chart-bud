@@ -1,5 +1,5 @@
 
-var chartsControllers = angular.module('chartsControllers', []);
+var chartsControllers = angular.module('chartsControllers', ['angular-inview']);
 chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', 'Exchange', 'Stock', 'Tag',
     function($rootScope, $scope, $state, Exchange, Stock, Tag) {
 
@@ -61,6 +61,7 @@ chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', 'Exc
             .success(function(data){
                 $scope.stocks.loading = false;
                 $scope.stocks.results = data.results;
+                $scope.stocks.next = data.next;
             })
         }
         
@@ -90,6 +91,19 @@ chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', 'Exc
             // put into list of current if need be
             if (tag.current){
                 $scope.tags.current.push(tag.id);
+            }
+        }
+        
+        // triggered by inview element
+        $scope.loadMoreStocks = function(){
+            if ($scope.stocks.next && !$scope.stocks.loading){
+                $scope.stocks.loading = true;
+                Stock.getUrl($scope.stocks.next)
+                .success(function(data){
+                    $scope.stocks.loading = false;
+                    $scope.stocks.results = $scope.stocks.results.concat(data.results);
+                    $scope.stocks.next = data.next;
+                })
             }
         }
         

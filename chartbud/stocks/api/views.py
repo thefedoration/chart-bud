@@ -1,16 +1,21 @@
 from __future__ import absolute_import
 
-from rest_framework import (viewsets)
+from rest_framework import (viewsets, filters,)
+import django_filters.rest_framework
 
+from stocks.models import (
+    Exchange, Company, Tag, Stock
+)
 from stocks.api.serializers import (
     ExchangeSerializer,
     CompanySerializer,
     TagSerializer,
     StockSerializer,
 )
-from stocks.models import (
-    Exchange, Company, Tag, Stock
+from stocks.api.filters import (
+    StockFilter,
 )
+from stocks.api.pagination import StockPagination
 
 
 class ExchangeViewSet(viewsets.ReadOnlyModelViewSet):
@@ -29,6 +34,14 @@ class StockViewSet(viewsets.ReadOnlyModelViewSet):
         company__is_active=True,
         exchange__is_active=True)
     serializer_class = StockSerializer
+    pagination_class = StockPagination
+
+    filter_backends = (
+        django_filters.rest_framework.DjangoFilterBackend,
+        filters.SearchFilter,
+    )
+    filter_class = StockFilter
+    search_fields = ('ticker', 'company__name',)
 
 
 class TagViewSet(viewsets.ReadOnlyModelViewSet):

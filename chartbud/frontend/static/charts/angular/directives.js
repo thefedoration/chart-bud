@@ -1,6 +1,12 @@
 
 var chartsDirectives = angular.module('chartsDirectives', []);
 
+chartsDirectives.directive('loadingAnimation', function($rootScope) {
+    return {
+        templateUrl: '/static/charts/html/directives/loading-animation.html' + '?v=' + Date.now().toString(),
+    }
+});
+
 chartsDirectives.directive('exchangeFilter', function($rootScope) {
     return {
         templateUrl: '/static/charts/html/directives/exchange-filter.html' + '?v=' + Date.now().toString(),

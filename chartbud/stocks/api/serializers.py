@@ -62,5 +62,12 @@ class StockSerializer(serializers.ModelSerializer):
             'ticker',
             'exchange',
             'company',
+            'market_cap',
+            'previous_close',
+            'open',
+            'current',
+            'volume',
+            'daily_diff',
+            'daily_diff_percent',
         )
 

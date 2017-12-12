@@ -45,6 +45,9 @@ chartsServices.factory('Stock', ['$http',
         StockMethods.filter = function(params) {
 			return $http.get('/api/stocks/stocks/'+toQueryString(params));
 		}
+        StockMethods.getUrl = function(url) {
+			return $http.get(url);
+		}
     	return StockMethods;
 }]);
 

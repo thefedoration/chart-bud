@@ -8,15 +8,15 @@
 </div>
 <div class="price-container">
     <h5 class="uppercase margin-0 center-align">
-        {{stock.exchange.currency.character}}12.55
+        {{stock.exchange.currency.character}}{{stock.current}}
     </h5>
     <div class="smaller dim center-align">{{stock.exchange.currency.symbol}}</div>
 </div>
 <div class="change-container">
-    <h5 class="emerald margin-0 center-align">
-        +10.23%
+    <h5 class="margin-0 center-align" ng-class="{'emerald': stock.daily_diff_percent>0, 'alizarin': stock.daily_diff_percent<0, 'white-dim': stock.daily_diff_percent==0}">
+        <span ng-if="stock.daily_diff_percent>=0">+</span>{{stock.daily_diff_percent}}%
     </h5>
-    <div class="emerald smaller dim center-align">
-        +0.15
+    <div class="smaller center-align" ng-class="{'emerald': stock.daily_diff>0, 'alizarin': stock.daily_diff<0, 'white-dim': stock.daily_diff==0}">
+        <span ng-if="stock.daily_diff>=0">+</span>{{stock.daily_diff}}
     </div>
 </div>

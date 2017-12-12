@@ -72,6 +72,26 @@ class Stock(BaseModel):
     ticker = models.CharField(max_length=10, blank=False)
     exchange = models.ForeignKey('Exchange', null=False, blank=False)
     company = models.ForeignKey('Company', null=False, blank=False)
+    market_cap = models.PositiveIntegerField(default=0)
+
+    # today's numbers
+    previous_close = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
+    open = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
+    current = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
+    volume = models.PositiveIntegerField(default=0)
+
+    # calculated numbers
+    daily_diff = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
+    daily_diff_percent = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
+
+    def save(self, *args, **kwargs):
+        """
+        Calculates diffs
+        """
+        if self.current and self.previous_close:
+            self.daily_diff = self.current - self.previous_close
+            self.daily_diff_percent = 100.00 * self.daily_diff / self.previous_close
+        super(Stock, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return u"%s (%s)" % (self.ticker, self.company.name)

@@ -16,9 +16,10 @@
         <div class="tickers flex">
             <sidebar-ticker stock="stock" ng-repeat="stock in stocks.results | filter:searchText"
                 class="layout horizontal"></sidebar-ticker>
+                
+            <div id="end-of-tickers" in-view="loadMoreStocks()" ng-if="stocks.next && !stocks.loading"></div>
+            <loading-animation ng-if="stocks.loading"></loading-animation>
         </div>
     </div>
 </div>
-<div class="charts-content padding-10 flex" ui-view>
-    charts content
-</div>
+<div class="charts-content padding-10 flex" ui-view></div>
