@@ -1,15 +1,16 @@
 <div class="dropdown-label">
     Tags
-    <span class="notification peter-river-background"
-        ng-if="tags.current.length">{{tags.current.length}}</span>
+    <span class="notification peter-river-background" ng-if="(options | filter : {current:true}).length">
+        {{(options | filter : {current:true}).length}}
+    </span>
     <i class="fa fa-angle-down"></i>
 </div>
 <div class="options white-background charcoal">
-    <div class="option" ng-repeat="tag in tags.results">
+    <div class="option" ng-repeat="tag in options">
         <label>
-            <input type="checkbox" ng-model="tag.current" ng-change="currentTagChanged(tag)">
+            <input type="checkbox" ng-model="tag.current" ng-change="optionToggled()">
             {{tag.name}}
         </label>
     </div>
-    <loading-animation ng-if="tags.loading"></loading-animation>
+    <loading-animation ng-if="loading"></loading-animation>
 </div>

@@ -4,15 +4,10 @@
         
         <exchange-filter class="filter dropdown"></exchange-filter>
         <tag-filter class="filter dropdown"></tag-filter>
+        <search-filter class="filter search layout horizontal"></search-filter>
     </div>
     <div class="sidebar-section flex layout vertical">
         <label class="bold dim extra uppercase">Tickers</label>
-        
-        <div class="filter search layout horizontal">
-            <input class="flex" ng-model="searchText" placeholder="Search"></input>
-            <i class="fa fa-search"></i>
-        </div>
-        
         <div class="tickers flex">
             <sidebar-ticker stock="stock" ng-repeat="stock in stocks.results | filter:searchText"
                 class="layout horizontal"></sidebar-ticker>

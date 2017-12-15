@@ -23,5 +23,5 @@ urlpatterns = [
     url(r'^api/', include('chartbud.api')),
 
     # serves up frontend
-    url(r'^', include('frontend.urls'))
+    url(r'^cannabis/', include('frontend.urls'))
 ]
