@@ -39,9 +39,13 @@ class StockViewSet(viewsets.ReadOnlyModelViewSet):
     filter_backends = (
         django_filters.rest_framework.DjangoFilterBackend,
         filters.SearchFilter,
+        filters.OrderingFilter,
     )
     filter_class = StockFilter
     search_fields = ('ticker', 'company__name',)
+
+    ordering_fields = ('market_cap', 'volume', 'daily_diff_percent',)
+    ordering = ('-market_cap',)
 
 
 class TagViewSet(viewsets.ReadOnlyModelViewSet):

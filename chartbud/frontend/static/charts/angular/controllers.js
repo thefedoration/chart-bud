@@ -42,6 +42,9 @@ chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', '$ti
             if ($state.params.search){
                 queryParams['search'] = $state.params.search;
             }
+            if ($state.params.ordering){
+                queryParams['ordering'] = $state.params.ordering;
+            }
             return queryParams;
         }
         

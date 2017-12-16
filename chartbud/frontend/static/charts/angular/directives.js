@@ -61,7 +61,7 @@ chartsDirectives.controller('exchangeFilterController', ['$scope', '$state', '$r
     return {
         restrict: 'E',
         scope: {},
-        templateUrl: '/static/charts/html/directives/exchange-filter.html' + '?v=' + Date.now().toString(),
+        templateUrl: '/static/charts/html/directives/filters/exchange-filter.html' + '?v=' + Date.now().toString(),
         controller: 'exchangeFilterController'
     }
 });
@@ -120,7 +120,7 @@ chartsDirectives.controller('tagFilterController', ['$scope', '$state', '$rootSc
     return {
         restrict: 'E',
         scope: {},
-        templateUrl: '/static/charts/html/directives/tag-filter.html' + '?v=' + Date.now().toString(),
+        templateUrl: '/static/charts/html/directives/filters/tag-filter.html' + '?v=' + Date.now().toString(),
         controller: 'tagFilterController'
     }
 });
@@ -154,14 +154,87 @@ chartsDirectives.controller('searchFilterController', ['$scope', '$state', '$roo
         // INIT
         // /////////////////////
         $scope.setCurrentFromParams();
-        $('#search-filter').focus();
     }
 ]).directive('searchFilter', function($rootScope) {
     return {
         restrict: 'E',
         scope:{},
-        templateUrl: '/static/charts/html/directives/search-filter.html' + '?v=' + Date.now().toString(),
+        templateUrl: '/static/charts/html/directives/filters/search-filter.html' + '?v=' + Date.now().toString(),
         controller: 'searchFilterController'
+    }
+});
+
+
+chartsDirectives.controller('orderingFilterController', ['$scope', '$state', '$rootScope',
+    function($scope, $state, $rootScope) {
+        // PARAMS
+        // /////////////////////
+        $scope.orderingOptions = [
+            {'key': 'market_cap', 'name': 'Market Cap'},
+            {'key': 'daily_diff_percent', 'name': 'Daily Gain'},
+            {'key': 'volume', 'name': 'Daily Volume'},
+        ]
+
+        // METHODS
+        // /////////////////////
+        
+        // looks at params, determines which options are current
+        $scope.setCurrentFromParams = function(){
+            if ($state.params.ordering){
+                var orderingValue = angular.copy($state.params.ordering);
+                
+                // determine direction of our ordering
+                if(orderingValue.charAt(0) === '-'){
+                    $scope.orderingDown = true;
+                    orderingValue = orderingValue.slice(1);
+                } else {
+                    $scope.orderingDown = false;
+                }
+                
+                // get the ordering option
+                $scope.currentOption = $scope.orderingOptions.filter(function(o){
+                    return o.key == orderingValue;
+                })[0];
+            } else {
+                $scope.currentOption = $scope.orderingOptions[0];
+                $scope.orderingDown = true;
+            }
+        }
+        
+        
+        // ACTIONS
+        // /////////////////////
+        
+        $scope.setOrder = function(option){
+            $scope.currentOption = option;
+            $scope.orderingChanged();
+        }
+        $scope.setOrderingDirection = function(orderDown){
+            $scope.orderingDown = true;
+            $scope.orderingChanged();
+        }
+
+        // WATCHERS
+        // /////////////////////
+        
+        $scope.orderingChanged = function(){
+            var params = angular.copy($state.params);
+            params['ordering'] = ($scope.orderingDown) ? "-" : "";
+            params['ordering'] += $scope.currentOption.key;
+            $state.go($state.current.name, params, {'notify': false});
+            $scope.$parent.filterStocks();
+        }
+
+        // INIT
+        // /////////////////////
+        $scope.setCurrentFromParams();
+    }
+]).directive('orderingFilter', function($rootScope) {
+    return {
+        restrict: 'E',
+        scope:{},
+        templateUrl: '/static/charts/html/directives/filters/ordering-filter.html' + '?v=' + Date.now().toString(),
+        controller: 'orderingFilterController'
     }
 });
 

@@ -14,14 +14,12 @@ var sector = "cannabis"; // temp
 
 thisApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     // $urlRouterProvider.otherwise("/");
-
     $locationProvider.html5Mode({enabled: true});
-    // $httpProvider.defaults.headers.common['X-CSRFToken'] = document.getElementById('pycsrf') && document.getElementById('pycsrf').value;
-
+    
     // states are set up in submodules
     $stateProvider
         .state('main', {
-            url: '/?exchanges&tags&search',
+            url: '/?exchanges&tags&search&ordering',
             templateUrl: '/static/charts/html/main.html',
             controller: 'mainCtrl',
         })

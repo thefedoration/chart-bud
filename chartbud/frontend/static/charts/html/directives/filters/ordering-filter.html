@@ -1,0 +1,13 @@
+<div class="dropdown-label">
+    {{currentOption.name}}
+    <i class="fa fa-angle-down"></i>
+</div>
+<div class="options white-background charcoal">
+    <div class="option" ng-repeat="option in orderingOptions">
+        <label ng-click="setOrder(option)">
+            <i class="fa fa-circle" ng-class="{'peter-river':option.key==currentOption.key, 'white':option.key!==currentOption.key}"
+            style="margin:1px;"></i>
+            {{option.name}}
+        </label>
+    </div>
+</div>
