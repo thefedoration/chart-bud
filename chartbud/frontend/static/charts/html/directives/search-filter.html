@@ -1,4 +1,3 @@
-<form ng-submit="searchQueryChanged()">
-    <input id="search-filter" class="flex" ng-model="searchQuery" placeholder="Search"></input>
-    <i class="fa fa-search"></i>
-</form> 
+<input id="search-filter" class="flex" ng-model="searchQuery" placeholder="Search"
+    autocomplete="off" ng-change="searchQueryChanged()"></input>
+<i class="fa fa-search"></i>

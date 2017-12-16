@@ -49,7 +49,8 @@ chartsDirectives.controller('exchangeFilterController', ['$scope', '$state', '$r
                 return e.current;
             })
             params['exchanges'] = (current.length) ? current.map(function(e){return e.symbol;}).join(",") : undefined;
-            $state.transitionTo($state.current.name, params);
+            $state.go($state.current.name, params, {'notify': false});
+            $scope.$parent.filterStocks();
         }
 
         // INIT
@@ -107,7 +108,8 @@ chartsDirectives.controller('tagFilterController', ['$scope', '$state', '$rootSc
                 return t.current;
             })
             params['tags'] = (current.length) ? current.map(function(t){return t.id;}).join(",") : undefined;
-            $state.transitionTo($state.current.name, params);
+            $state.go($state.current.name, params, {'notify': false});
+            $scope.$parent.filterStocks();
         }
 
         // INIT
@@ -145,7 +147,8 @@ chartsDirectives.controller('searchFilterController', ['$scope', '$state', '$roo
         $scope.searchQueryChanged = function(){
             var params = angular.copy($state.params);
             params['search'] = ($scope.searchQuery) ? $scope.searchQuery : undefined;
-            $state.transitionTo($state.current.name, params);
+            $state.go($state.current.name, params, {'notify': false});
+            $scope.$parent.filterStocks();
         }
 
         // INIT

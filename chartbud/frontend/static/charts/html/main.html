@@ -7,13 +7,18 @@
         <search-filter class="filter search layout horizontal"></search-filter>
     </div>
     <div class="sidebar-section flex layout vertical">
-        <label class="bold dim extra uppercase">Tickers</label>
+        <label class="bold">
+            <span class="dim extra uppercase">Tickers</span>
+            <loading-animation ng-if="stocks.loading"
+                style="margin: 0 0 0 5px;display:inline;"></loading-animation>
+            <span ng-if="!stocks.loading" style="padding-left:5px;">({{stocks.count}})</span>
+        </label>
         <div class="tickers flex">
             <sidebar-ticker stock="stock" ng-repeat="stock in stocks.results | filter:searchText"
                 class="layout horizontal"></sidebar-ticker>
                 
-            <div id="end-of-tickers" in-view="loadMoreStocks()" ng-if="stocks.next && !stocks.loading"></div>
-            <loading-animation ng-if="stocks.loading"></loading-animation>
+            <div id="end-of-tickers" in-view="loadMoreStocks()" ng-if="stocks.next && !stocks.loadingMore"></div>
+            <loading-animation ng-if="stocks.loadingMore"></loading-animation>
         </div>
     </div>
 </div>
