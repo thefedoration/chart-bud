@@ -33,6 +33,8 @@ class StockViewSet(viewsets.ReadOnlyModelViewSet):
         is_active=True,
         company__is_active=True,
         exchange__is_active=True)
+    lookup_field = 'ticker'
+
     serializer_class = StockSerializer
     pagination_class = StockPagination
 

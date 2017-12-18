@@ -28,6 +28,21 @@ thisApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
             templateUrl: '/static/charts/html/stock.html',
             controller: 'stockCtrl',
         })
+        .state('main.stock.company', {
+            url: 'company/',
+            templateUrl: '/static/charts/html/stock-company.html',
+            // controller: 'stockCompanyCtrl',
+        })
+        .state('main.stock.news', {
+            url: 'news/',
+            templateUrl: '/static/charts/html/stock-news.html',
+            // controller: 'stockNewsCtrl',
+        })
+        .state('main.stock.premarket', {
+            url: 'premarket/',
+            templateUrl: '/static/charts/html/stock-premarket.html',
+            // controller: 'stockPremarketCtrl',
+        })
 });
 
 

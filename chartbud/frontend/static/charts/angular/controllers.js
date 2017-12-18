@@ -5,7 +5,7 @@ chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', '$ti
 
         // PARAMS
         ///////////////////////////////
-        // $rootScope.previousParams = {};
+        $scope.state = $state;
         $scope.timeoutPromise; // inits promise used in querying stocks
         $scope.stocks = {loading: false, results: []}
 
@@ -26,6 +26,8 @@ chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', '$ti
                     $scope.stocks.results = data.results;
                     $scope.stocks.count = data.count;
                     $scope.stocks.next = data.next;
+                    
+                    $('#sidebar-tickers').scrollTop(0)
                 })
             }, 250);
         }
@@ -70,5 +72,36 @@ chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', '$ti
         // INIT
         ///////////////////////////////
         $scope.filterStocks();
+    }
+]);
+
+
+chartsControllers.controller('stockCtrl', ['$rootScope', '$scope', '$state', '$timeout', 'Stock',
+    function($rootScope, $scope, $state, $timeout, Stock) {
+
+        // PARAMS
+        ///////////////////////////////
+
+        // METHODS
+        ///////////////////////////////
+        
+        $scope.getStock = function(){
+            $scope.loading = true;
+            Stock.get($state.params.ticker)
+            .success(function(data){
+                $scope.loading = false;
+                $scope.stock = data;
+            })
+        }
+        
+        // ACTIONS
+        ///////////////////////////////
+        
+        // WATCHERS
+        ///////////////////////////////
+
+        // INIT
+        ///////////////////////////////
+        $scope.getStock();
     }
 ]);

@@ -15,9 +15,11 @@
             
             <ordering-filter class="filter dropdown ordering"></ordering-filter>
         </label>
-        <div class="tickers flex">
-            <sidebar-ticker stock="stock" ng-repeat="stock in stocks.results | filter:searchText"
-                class="layout horizontal"></sidebar-ticker>
+        <div id="sidebar-tickers" class="tickers flex">
+            <a ng-repeat="stock in stocks.results" ui-sref="main.stock({'ticker':stock.ticker})">
+                <sidebar-ticker stock="stock" class="layout horizontal"
+                    ng-class="{'current':stock.ticker==state.params.ticker}"></sidebar-ticker>
+            </a>
                 
             <div id="end-of-tickers" in-view="loadMoreStocks()" ng-if="stocks.next && !stocks.loadingMore"></div>
             <loading-animation ng-if="stocks.loadingMore"></loading-animation>
