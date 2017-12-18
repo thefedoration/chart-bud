@@ -210,7 +210,7 @@ chartsDirectives.controller('orderingFilterController', ['$scope', '$state', '$r
             $scope.orderingChanged();
         }
         $scope.setOrderingDirection = function(orderDown){
-            $scope.orderingDown = true;
+            $scope.orderingDown = orderDown;
             $scope.orderingChanged();
         }
 

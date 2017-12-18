@@ -1,6 +1,8 @@
 <div class="dropdown-label">
-    {{currentOption.name}}
-    <i class="fa fa-angle-down"></i>
+    <span class="dim">{{currentOption.name}}</span>
+    <i class="fa dim hoverable" ng-class="{'fa-long-arrow-down':orderingDown, 'fa-long-arrow-up':!orderingDown}"
+        ng-click="setOrderingDirection(!orderingDown)"
+        style="cursor:pointer;padding-left:3px;"></i>
 </div>
 <div class="options white-background charcoal">
     <div class="option" ng-repeat="option in orderingOptions">
