@@ -83,6 +83,12 @@ class Stock(BaseModel):
     # calculated numbers
     daily_diff = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
     daily_diff_percent = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
+    
+    @property
+    def full_ticker(self):
+        if self.exchange.ticker_suffix:
+            return "%s.%s" % (self.ticker, self.exchange.ticker_suffix)
+        return self.ticker
 
     def save(self, *args, **kwargs):
         """

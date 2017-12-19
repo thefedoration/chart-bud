@@ -1,8 +1,11 @@
 from __future__ import absolute_import
 
-from rest_framework import (viewsets, filters,)
 import django_filters.rest_framework
+from rest_framework import (viewsets, filters, status)
+from rest_framework.response import Response
+from rest_framework.decorators import detail_route
 
+from stocks.backends import AlphavantageBackend
 from stocks.models import (
     Exchange, Company, Tag, Stock
 )
@@ -48,6 +51,29 @@ class StockViewSet(viewsets.ReadOnlyModelViewSet):
 
     ordering_fields = ('market_cap', 'volume', 'daily_diff_percent',)
     ordering = ('-market_cap',)
+
+    @detail_route(methods=['get'])
+    def chart(self, request, ticker=None):
+        stock = self.get_object()
+        timespan = self.request.GET.get('timespan', None)
+        backend = AlphavantageBackend(stock.full_ticker)
+
+        if timespan == "current":
+            return Response(backend.get_current(), status=status.HTTP_200_OK)
+        elif timespan == "1d":
+            return Response(backend.get_1d_series(), status=status.HTTP_200_OK)
+        elif timespan == "5d":
+            return Response(backend.get_5d_series(), status=status.HTTP_200_OK)
+        elif timespan == "1m":
+            return Response(backend.get_1m_series(), status=status.HTTP_200_OK)
+        elif timespan == "3m":
+            return Response(backend.get_3m_series(), status=status.HTTP_200_OK)
+        elif timespan == "1y":
+            return Response(backend.get_1y_series(), status=status.HTTP_200_OK)
+        elif timespan == "max":
+            return Response(backend.get_max_series(), status=status.HTTP_200_OK)
+        else:
+            return Response("Invalid Timespan", status=status.HTTP_400_BAD_REQUEST)
 
 
 class TagViewSet(viewsets.ReadOnlyModelViewSet):
