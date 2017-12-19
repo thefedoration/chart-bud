@@ -171,6 +171,8 @@
     }
     
     .charts-content{
+        overflow:auto;
+        
         .stock-header{
             min-height:80px;
             margin:10px 5px 20px;
