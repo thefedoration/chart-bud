@@ -83,7 +83,7 @@ class Stock(BaseModel):
     # calculated numbers
     daily_diff = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
     daily_diff_percent = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
-    
+
     @property
     def full_ticker(self):
         if self.exchange.ticker_suffix:
@@ -96,7 +96,7 @@ class Stock(BaseModel):
         """
         if self.current and self.previous_close:
             self.daily_diff = self.current - self.previous_close
-            self.daily_diff_percent = 100.00 * self.daily_diff / self.previous_close
+            self.daily_diff_percent = 100 * self.daily_diff / self.previous_close
         super(Stock, self).save(*args, **kwargs)
 
     def __unicode__(self):

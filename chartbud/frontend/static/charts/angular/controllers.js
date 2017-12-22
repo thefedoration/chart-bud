@@ -1,13 +1,14 @@
 
 var chartsControllers = angular.module('chartsControllers', ['angular-inview']);
-chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', '$timeout', 'Stock',
-    function($rootScope, $scope, $state, $timeout, Stock) {
+chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', '$timeout', '$interval', 'Stock',
+    function($rootScope, $scope, $state, $timeout, $interval, Stock) {
 
         // PARAMS
         ///////////////////////////////
         $scope.state = $state;
         $scope.timeoutPromise; // inits promise used in querying stocks
-        $scope.stocks = {loading: false, results: []}
+        $scope.stocks = {loading: false, results: []};
+        $scope.refreshOn = true;
 
         // METHODS
         ///////////////////////////////
@@ -50,6 +51,32 @@ chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', '$ti
             return queryParams;
         }
         
+        // pings server for updated numbers for current tickers
+        $scope.updateCurrentStocks = function(){
+            if (!$scope.stocks.loading){
+                var tickers = $scope.stocks.results.map(a => a.ticker)
+                Stock.filter({'ticker__in':tickers.join(","), 'limit': tickers.length})
+                .success(function(data){
+                    // iterate over each stock we got back, update the one in the sidebar
+                    data.results.forEach(function(r){
+                        var stock = $scope.stocks.results.filter(s => s.ticker == r.ticker)[0];
+                        
+                        if (stock){
+                            // update values
+                            stock.tickDifference = r.current - stock.current;
+                            stock.current = r.current;
+                            stock.daily_diff = r.daily_diff;
+                            stock.daily_diff_percent = r.daily_diff_percent;
+                            stock.volume = r.volume;
+                            
+                            // update tick difference after 2s back to 0
+                            $timeout(() => stock.tickDifference = null, 2000);
+                        }
+                    })
+                });
+            }
+        }
+        
         // ACTIONS
         ///////////////////////////////
         
@@ -68,6 +95,13 @@ chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', '$ti
         
         // WATCHERS
         ///////////////////////////////
+        
+        // create interval polling function to continuously update current list
+        $interval(function(){
+            if ($scope.refreshOn){
+                $scope.updateCurrentStocks();
+            }
+        }, 1000 * 5);
 
         // INIT
         ///////////////////////////////

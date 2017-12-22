@@ -155,6 +155,15 @@
                     }
                     .name-container{
                         padding:10px 0;
+                        
+                        .tick-icon{
+                            opacity:0;
+                            margin-left:5px;
+                            transition: all 0.5s ease-in-out;
+                            &.visible{
+                                opacity:1;
+                            }
+                        }
                     }
                     .price-container{
                         padding:10px;
