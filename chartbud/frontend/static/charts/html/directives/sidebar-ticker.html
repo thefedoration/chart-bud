@@ -2,24 +2,26 @@
     <i class="fa gold dim hoverable" ng-click="setFavorite(stock, !isFavorite(stock))"
         ng-class="{'fa-star': isFavorite(stock), 'fa-star-o': !isFavorite(stock)}"></i>
 </div>
-<div class="name-container flex">
-    <h5 class="uppercase margin-0">{{stock.ticker}}
-        <!-- <i class="fa fa-circle tick-icon white"
-            ng-class="{'emerald':stock.tickDifference>=0, 'alizarin':stock.tickDifference<0, 'visible':stock.tickDifference}"></i> -->
-    </h5>
-    <div class="dim">{{stock.company.name}}</div>
-</div>
-<div class="price-container">
-    <h5 class="uppercase margin-0 center-align">
-        {{stock.exchange.currency.character}}{{stock.current}}
-    </h5>
-    <div class="smaller dim center-align">{{stock.exchange.currency.symbol}}</div>
-</div>
-<div class="change-container">
-    <h5 class="margin-0 center-align" ng-class="{'emerald': stock.daily_diff_percent>0, 'alizarin': stock.daily_diff_percent<0, 'white-dim': stock.daily_diff_percent==0}">
-        <span ng-if="stock.daily_diff_percent>=0">+</span>{{stock.daily_diff_percent}}%
-    </h5>
-    <div class="smaller center-align" ng-class="{'emerald': stock.daily_diff>0, 'alizarin': stock.daily_diff<0, 'white-dim': stock.daily_diff==0}">
-        <span ng-if="stock.daily_diff>=0">+</span>{{stock.daily_diff}}
+<a class="flex layout horizontal" ui-sref="main.stock({'ticker':stock.ticker})">
+    <div class="name-container flex">
+        <h5 class="uppercase margin-0">{{stock.ticker}}
+            <!-- <i class="fa fa-circle tick-icon white"
+                ng-class="{'emerald':stock.tickDifference>=0, 'alizarin':stock.tickDifference<0, 'visible':stock.tickDifference}"></i> -->
+        </h5>
+        <div class="dim">{{stock.company.name}}</div>
     </div>
-</div>
+    <div class="price-container">
+        <h5 class="uppercase margin-0 center-align">
+            {{stock.exchange.currency.character}}{{stock.current}}
+        </h5>
+        <div class="smaller dim center-align">{{stock.exchange.currency.symbol}}</div>
+    </div>
+    <div class="change-container">
+        <h5 class="margin-0 center-align" ng-class="{'emerald': stock.daily_diff_percent>0, 'alizarin': stock.daily_diff_percent<0, 'white-dim': stock.daily_diff_percent==0}">
+            <span ng-if="stock.daily_diff_percent>=0">+</span>{{stock.daily_diff_percent}}%
+        </h5>
+        <div class="smaller center-align" ng-class="{'emerald': stock.daily_diff>0, 'alizarin': stock.daily_diff<0, 'white-dim': stock.daily_diff==0}">
+            <span ng-if="stock.daily_diff>=0">+</span>{{stock.daily_diff}}
+        </div>
+    </div>
+</a>
