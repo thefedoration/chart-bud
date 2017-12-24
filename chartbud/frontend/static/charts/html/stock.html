@@ -1,9 +1,9 @@
 <div class="stock-header">
     <div ng-show="stock">
         <h2 class="margin-0">
-            <i class="fa gold dim hoverable" ng-click="stock.favorite = !stock.favorite"
-                ng-class="{'fa-star': stock.favorite, 'fa-star-o': !stock.favorite}"
-                style="cursor:pointer;"></i>
+            <i class="fa gold dim hoverable" ng-click="setFavorite(stock, !isFavorite(stock))"
+                ng-class="{'fa-star': isFavorite(stock), 'fa-star-o': !isFavorite(stock)}"
+                ng-if="stock" style="cursor:pointer;"></i>
             {{stock.ticker}} - <span class="dim">{{stock.company.name}}</span>
         </h2>
         <h3 style="margin-bottom:0;">

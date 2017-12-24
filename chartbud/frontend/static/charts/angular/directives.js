@@ -238,14 +238,21 @@ chartsDirectives.controller('orderingFilterController', ['$scope', '$state', '$r
     }
 });
 
-chartsDirectives.controller('sidebarTickerController', ['$scope', '$state', '$rootScope',
-    function($scope, $state, $rootScope) {
+chartsDirectives.controller('sidebarTickerController', ['$scope', '$rootScope', '$state',
+    function($scope, $rootScope, $state) {
         // PARAMS
         // /////////////////////
 
         // ACTIONS
         // /////////////////////
+        
+        // user toggles a ticker as favorite or not
+        $scope.setFavorite = $rootScope.setFavorite;
 
+        // UTILS
+        // /////////////////////
+        $scope.isFavorite = $rootScope.isFavorite;
+        
         // WATCHERS
         // /////////////////////
 

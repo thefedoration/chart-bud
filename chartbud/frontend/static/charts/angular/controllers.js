@@ -1,7 +1,7 @@
 
-var chartsControllers = angular.module('chartsControllers', ['angular-inview']);
-chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', '$timeout', '$interval', 'Stock',
-    function($rootScope, $scope, $state, $timeout, $interval, Stock) {
+var chartsControllers = angular.module('chartsControllers', ['angular-inview', 'ngStorage',]);
+chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', '$timeout', '$interval', '$localStorage', 'Stock',
+    function($rootScope, $scope, $state, $timeout, $interval, $localStorage, Stock) {
 
         // PARAMS
         ///////////////////////////////
@@ -9,6 +9,8 @@ chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', '$ti
         $scope.timeoutPromise; // inits promise used in querying stocks
         $scope.stocks = {loading: false, results: []};
         $scope.refreshOn = true;
+        $rootScope.$localStore = $localStorage;
+        $rootScope.$localStore['favorites'] = $rootScope.$localStore['favorites'] || {};
 
         // METHODS
         ///////////////////////////////
@@ -24,7 +26,7 @@ chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', '$ti
                 Stock.filter($scope.queryParams)
                 .success(function(data){
                     $scope.stocks.loading = false;
-                    $scope.stocks.results = data.results;
+                    $scope.stocks.results = data.results
                     $scope.stocks.count = data.count;
                     $scope.stocks.next = data.next;
                     
@@ -93,6 +95,22 @@ chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', '$ti
             }
         }
         
+        // sets a stock as favorited or not
+        $rootScope.setFavorite = function(stock, isFavorite){
+            $rootScope.$localStore['favorites'][stock.ticker] = isFavorite;
+        }
+        
+        // UTILS
+        ///////////////////////////////
+        
+        // checks localstore if this stock is favorites
+        $rootScope.isFavorite = function(stock){
+            if ($rootScope.$localStore['favorites'][stock.ticker]){
+                return true;
+            }
+            return false;
+        }
+        
         // WATCHERS
         ///////////////////////////////
         
@@ -136,8 +154,12 @@ chartsControllers.controller('stockCtrl', ['$rootScope', '$scope', '$state', '$t
             })
         }
         
-        // ACTIONS
-        ///////////////////////////////
+        // user toggles a ticker as favorite or not
+        $scope.setFavorite = $rootScope.setFavorite;
+
+        // UTILS
+        // /////////////////////
+        $scope.isFavorite = $rootScope.isFavorite;
         
         // WATCHERS
         ///////////////////////////////
