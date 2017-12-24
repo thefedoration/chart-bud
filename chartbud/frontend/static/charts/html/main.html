@@ -1,9 +1,11 @@
 <div class="charts-sidebar padding-10 layout vertical">
     <div class="sidebar-section">
         <label class="bold dim extra uppercase">Filters</label>
-        
-        <exchange-filter class="filter dropdown"></exchange-filter>
-        <tag-filter class="filter dropdown"></tag-filter>
+        <div class="layout horizontal">
+            <favorite-filter class="filter boolean flex"></favorite-filter>
+            <exchange-filter class="filter dropdown flex"></exchange-filter>
+            <tag-filter class="filter dropdown flex"></tag-filter>
+        </div>
         <search-filter class="filter search layout horizontal"></search-filter>
     </div>
     <div class="sidebar-section flex layout vertical">
@@ -16,11 +18,9 @@
             <ordering-filter class="filter dropdown ordering"></ordering-filter>
         </label>
         <div id="sidebar-tickers" class="tickers flex">
-            <!-- <a ng-repeat="stock in stocks.results" ui-sref="main.stock({'ticker':stock.ticker})"> -->
-                <sidebar-ticker stock="stock" ng-repeat="stock in stocks.results" class="layout horizontal"
-                    ng-class="{'current':stock.ticker==state.params.ticker,
-                    'increasing':stock.tickDifference>0, 'decreasing':stock.tickDifference<0}"></sidebar-ticker>
-            <!-- </a> -->
+            <sidebar-ticker stock="stock" ng-repeat="stock in stocks.results" class="layout horizontal"
+                ng-class="{'current':stock.ticker==state.params.ticker,
+                'increasing':stock.tickDifference>0, 'decreasing':stock.tickDifference<0}"></sidebar-ticker>
                 
             <div id="end-of-tickers" in-view="loadMoreStocks()" ng-if="stocks.next && !stocks.loadingMore"></div>
             <loading-animation ng-if="stocks.loadingMore"></loading-animation>

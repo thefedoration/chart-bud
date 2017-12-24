@@ -164,6 +164,45 @@ chartsDirectives.controller('searchFilterController', ['$scope', '$state', '$roo
     }
 });
 
+chartsDirectives.controller('favoriteFilterController', ['$scope', '$state', '$rootScope',
+    function($scope, $state, $rootScope) {
+        // PARAMS
+        // /////////////////////
+
+        // METHODS
+        // /////////////////////
+        
+        // looks at params, determines which options are current
+        $scope.setCurrentFromParams = function(){
+            if ($state.params.favorite && $state.params.favorite == 'true'){
+                $scope.favorite = true;
+            }
+        }
+        
+        // ACTIONS
+        // /////////////////////
+        $scope.setFavorites = function(favorite){
+            var params = angular.copy($state.params);
+            $scope.favorite = favorite;
+            params['favorite'] = $scope.favorite;
+            $state.go($state.current.name, params, {'notify': false});
+            $scope.$parent.filterStocks();
+        }
+
+        // INIT
+        // /////////////////////
+        $scope.setCurrentFromParams()
+
+    }
+]).directive('favoriteFilter', function($rootScope) {
+    return {
+        restrict: 'E',
+        scope:{},
+        templateUrl: '/static/charts/html/directives/filters/favorite-filter.html' + '?v=' + Date.now().toString(),
+        controller: 'favoriteFilterController'
+    }
+});
+
 
 chartsDirectives.controller('orderingFilterController', ['$scope', '$state', '$rootScope',
     function($scope, $state, $rootScope) {

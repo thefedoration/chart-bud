@@ -50,6 +50,9 @@ chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', '$ti
             if ($state.params.ordering){
                 queryParams['ordering'] = $state.params.ordering;
             }
+            if ($state.params.favorite == 'true'){
+                queryParams['ticker__in'] = $scope.getFavorites();
+            }
             return queryParams;
         }
         
@@ -109,6 +112,13 @@ chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', '$ti
                 return true;
             }
             return false;
+        }
+        
+        // gets list of favorite tickers
+        $scope.getFavorites = function(){
+            return Object.keys($rootScope.$localStore['favorites']).filter(function(key){
+                return $rootScope.$localStore['favorites'][key] == true;
+            });
         }
         
         // WATCHERS

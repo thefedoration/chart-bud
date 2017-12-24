@@ -19,7 +19,7 @@ thisApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
     // states are set up in submodules
     $stateProvider
         .state('main', {
-            url: '/?exchanges&tags&search&ordering',
+            url: '/?exchanges&tags&search&ordering&favorite',
             templateUrl: '/static/charts/html/main.html',
             controller: 'mainCtrl',
         })

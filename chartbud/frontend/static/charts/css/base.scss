@@ -20,6 +20,18 @@
                 min-height:36px;
                 position:relative;
                 
+                &.flex{
+                    margin-left:5px;
+                    margin-right:5px;
+                    
+                    &:last-child{
+                        margin-right:0;
+                    }
+                    &:first-child{
+                        margin-left:0;
+                    }
+                }
+                
                 &.dropdown{
                     padding:10px;
                     
@@ -30,18 +42,19 @@
                         }
 
                         .notification{
-                            margin-left: 8px;
-                            font-size: 11px;
-                            padding: 1px 8px;
+                            font-size: 10px;
+                            padding: 1px 6px;
                             border-radius: 8px;
+                            float:right;
                         }
                     }
                     
                     .options{
                         position:absolute;
                         top:100%;
-                        left:-1px;
-                        right:-1px;
+                        // left:-1px;
+                        // right:-1px;
+                        width:calc(200% + 12px);
                         display:none;
                         max-height:200px;
                         overflow:auto;
@@ -50,6 +63,13 @@
                         box-shadow:0 1px 2px $shadow;
                         border-top:1px solid $shadow;
                         border-radius:3px;
+                        
+                        &.right-aligned{
+                            right:-1px;
+                        }
+                        &.left-aligned{
+                            left:-1px;
+                        }
                         
                         .option{
                             margin-bottom:5px;
@@ -123,6 +143,17 @@
                         i{
                             margin-left:5px;
                         }
+                    }
+                }
+                
+                &.boolean{
+                    cursor:pointer;
+                    line-height: 36px;
+                    text-align: center;
+                    font-size: 16px;
+                    
+                    &:hover{
+                        background:$shadow;
                     }
                 }
             }
