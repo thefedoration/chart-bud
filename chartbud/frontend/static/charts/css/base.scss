@@ -137,9 +137,18 @@
                     // border-bottom: 1px solid $white-shadow;
                     min-height:64px;
                     cursor:pointer;
+                    border-right:3px solid transparent;
+                    transition: all 0.5s ease-in-out;
                     
                     &:hover, &.current{
                         background-color: $shadow;
+                    }
+                    
+                    &.increasing{
+                        border-right-color:$emerald;
+                    }
+                    &.decreasing{
+                        border-right-color:$alizarin;
                     }
                     
                     // &:last-child{

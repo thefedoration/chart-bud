@@ -97,11 +97,19 @@ chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', '$ti
         ///////////////////////////////
         
         // create interval polling function to continuously update current list
-        $interval(function(){
+        $scope.refreshInterval = $interval(function(){
             if ($scope.refreshOn){
                 $scope.updateCurrentStocks();
             }
-        }, 1000 * 5);
+        }, 1000 * 20);
+        
+        // Make sure that the interval is destroyed
+        $scope.$on('$destroy', function() {
+            if ($scope.refreshInterval){
+                $interval.cancel($scope.refreshInterval);
+                $scope.refreshInterval = undefined;
+            }
+        });
 
         // INIT
         ///////////////////////////////
