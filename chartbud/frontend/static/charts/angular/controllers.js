@@ -103,6 +103,15 @@ chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', '$ti
             $rootScope.$localStore['favorites'][stock.ticker] = isFavorite;
         }
         
+        // clears filters by removing all url params besides ticker
+        $scope.clearFilters = function(){
+            var params = angular.copy($state.params);
+            Object.keys(params).forEach(function(key){
+                params[key] = (key=="ticker") ? params[key] : undefined;
+            });
+            window.location.href = $state.href($state.current.name, params);
+        }
+        
         // UTILS
         ///////////////////////////////
         

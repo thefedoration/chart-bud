@@ -21,10 +21,14 @@
             <sidebar-ticker stock="stock" ng-repeat="stock in stocks.results" class="layout horizontal"
                 ng-class="{'current':stock.ticker==state.params.ticker,
                 'increasing':stock.tickDifference>0, 'decreasing':stock.tickDifference<0}"></sidebar-ticker>
+            <div class="padding center-align" ng-if="!stocks.loading && !stocks.results.length">
+                <div class="dim">No results found</div>
+                <a class="dim hoverable bold clickable" ng-click="clearFilters()">clear filters</a>
+            </div>
                 
             <div id="end-of-tickers" in-view="loadMoreStocks()" ng-if="stocks.next && !stocks.loadingMore"></div>
             <loading-animation ng-if="stocks.loadingMore"></loading-animation>
         </div>
     </div>
 </div>
-<div class="charts-content padding-10 flex" ui-view>{{$localStore.favorites}}</div>
+<div class="charts-content padding-10 flex" ui-view></div>
