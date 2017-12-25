@@ -24,7 +24,7 @@ thisApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
             controller: 'mainCtrl',
         })
         .state('main.stock', {
-            url: ':ticker/',
+            url: ':ticker/?timespan',
             templateUrl: '/static/charts/html/stock.html',
             controller: 'stockCtrl',
         })

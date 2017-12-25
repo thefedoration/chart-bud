@@ -5,13 +5,6 @@ var chartsServices = angular.module('chartsServices', []);
 chartsServices.factory('Exchange', ['$http',
     function($http){
       	var ExchangeMethods = {};
-      	// AuthMethods.filterExchanges = function(query) {
-    	// 	return $http({
-    	// 		method: 'POST',
-    	// 		url: '/auth/login/',
-    	// 		data: user
-    	// 	});
-    	// }
         ExchangeMethods.filter = function(params) {
 			return $http.get('/api/stocks/exchanges/'+toQueryString(params));
 		}
@@ -50,6 +43,9 @@ chartsServices.factory('Stock', ['$http',
 		}
         StockMethods.get = function(ticker) {
 			return $http.get('/api/stocks/stocks/'+ticker+'/');
+		}
+        StockMethods.getChart = function(ticker, params) {
+			return $http.get('/api/stocks/stocks/'+ticker+'/chart/'+toQueryString(params));
 		}
     	return StockMethods;
 }]);

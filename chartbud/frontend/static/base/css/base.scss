@@ -72,6 +72,14 @@ button{
             border-bottom:2px solid $peter-river !important;
         }
     }
+    
+    &.tiny{
+        min-height:0;
+        .nav-item{
+            padding:5px 0;
+            margin:0 5px;
+        }
+    }
 }
 
 .page-wrap{

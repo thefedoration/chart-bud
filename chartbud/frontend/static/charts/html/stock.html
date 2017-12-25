@@ -6,22 +6,30 @@
                 ng-if="stock" style="cursor:pointer;"></i>
             {{stock.ticker}} - <span class="dim">{{stock.company.name}}</span>
         </h2>
-        <h3 style="margin-bottom:0;">
-            <span class="dim">{{stock.exchange.currency.character}}{{stock.current}}</span>
-            <span class="smaller" style="margin-left:10px;"
-                ng-class="{'emerald': stock.daily_diff_percent>0, 'alizarin': stock.daily_diff_percent<0, 'white-dim': stock.daily_diff_percent==0}">
-                <span>
-                    <span ng-if="stock.daily_diff>=0">+</span>{{stock.daily_diff}}
+        <div class="layout horizontal">
+            <h3 class="flex" style="margin-bottom:0;">
+                <span class="dim">{{stock.exchange.currency.character}}{{stock.current}}</span>
+                <span class="smaller" style="margin-left:10px;"
+                    ng-class="{'emerald': stock.daily_diff_percent>0, 'alizarin': stock.daily_diff_percent<0, 'white-dim': stock.daily_diff_percent==0}">
+                    <span>
+                        <span ng-if="stock.daily_diff>=0">+</span>{{stock.daily_diff}}
+                    </span>
+                    <span>
+                        (<span ng-if="stock.daily_diff_percent>=0">+</span>{{stock.daily_diff_percent}}%)
+                    </span>
                 </span>
-                <span>
-                    (<span ng-if="stock.daily_diff_percent>=0">+</span>{{stock.daily_diff_percent}}%)
-                </span>
-            </span>
-        </h3>
+            </h3>
+            <div id="stock-nav" class="nav-items layout horizontal tiny">
+                <a class="nav-item" ng-repeat="timespan in timespans" ng-click="setTimespan(timespan)"
+                ng-class="{'current': (state.params.timespan == timespan) || (!state.params.timespan && timespan=='1d')}">
+                    <span>{{caps(timespan)}}</span>
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 <div class="chart-container white-shadow-background">
-
+    <loading-animation ng-if="loadingChart" style="position: absolute;right: 20px;"></loading-animation>
 </div>
 
 <div id="stock-nav" class="nav-items layout horizontal flex wrap">

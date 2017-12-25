@@ -183,7 +183,7 @@ chartsDirectives.controller('favoriteFilterController', ['$scope', '$state', '$r
         // /////////////////////
         $scope.setFavorites = function(favorite){
             var params = angular.copy($state.params);
-            $scope.favorite = favorite;
+            $scope.favorite = favorite || undefined;
             params['favorite'] = $scope.favorite;
             $state.go($state.current.name, params, {'notify': false});
             $scope.$parent.filterStocks();

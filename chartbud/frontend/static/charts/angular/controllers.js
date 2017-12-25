@@ -6,7 +6,7 @@ chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', '$ti
         // PARAMS
         ///////////////////////////////
         $scope.state = $state;
-        $scope.timeoutPromise; // inits promise used in querying stocks
+        $scope.stockPromise; // inits promise used in querying stocks
         $scope.stocks = {loading: false, results: []};
         $scope.refreshOn = true;
         $rootScope.$localStore = $localStorage;
@@ -18,8 +18,8 @@ chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', '$ti
         // gets list of stocks based on filter params
         $scope.filterStocks = function(){
             $scope.stocks.loading = true;
-            $timeout.cancel($scope.timeoutPromise); // cancels any old timeout promises
-            $scope.timeoutPromise = $timeout(function(){ // waits 250 ms and executes if there isn't a new request
+            $timeout.cancel($scope.stockPromise); // cancels any old timeout promises
+            $scope.stockPromise = $timeout(function(){ // waits 250 ms and executes if there isn't a new request
             
                 // gets query params, updates stocks list
                 $scope.queryParams = $scope.getQueryParams();
@@ -160,17 +160,54 @@ chartsControllers.controller('stockCtrl', ['$rootScope', '$scope', '$state', '$t
 
         // PARAMS
         ///////////////////////////////
+        $scope.state = $state;
+        $scope.timespans = ["1d", "5d", "1m", "3m", "1y", "max"];
+        $scope.chartPromise; // inits promise used in querying for chart
 
         // METHODS
         ///////////////////////////////
         
+        // load up the stock if we don't have it already
         $scope.getStock = function(){
             $scope.loading = true;
             Stock.get($state.params.ticker)
             .success(function(data){
                 $scope.loading = false;
                 $scope.stock = data;
-            })
+            });
+        }
+        
+        $scope.getChart = function(timespan){
+            var params = {
+                'timespan': timespan || $state.params.timespan || '1d'
+            }
+            
+            $scope.loadingChart = true;
+            // $timeout.cancel($scope.chartPromise); // cancels any old timeout promises
+            // console.log(angular.copy($scope.chartPromise))
+            // $scope.chartPromise = $timeout(function(){ // waits 250 ms and executes if there isn't a new request
+                $scope.loadingChart = true;
+                console.log($scope.chartPromise);
+                $scope.currentRequest = Stock.getChart($state.params.ticker, params)
+                .success(function(data){
+                    console.log($scope.chartPromise);
+                    $scope.loadingChart = false;
+                    $scope.chartData = data;
+                    console.log(data);
+                    console.log($scope.currentRequest)
+                });
+                console.log($scope.currentRequest)
+            // }, 250);
+        }
+        
+        // ACTIONS
+        // /////////////////////
+        
+        $scope.setTimespan = function(timespan){
+            var params = angular.copy($state.params);
+            params['timespan'] = (timespan=="1d") ? undefined : timespan;
+            $state.go($state.current.name, params, {'notify': false});
+            $scope.getChart(timespan);
         }
         
         // user toggles a ticker as favorite or not
@@ -180,11 +217,16 @@ chartsControllers.controller('stockCtrl', ['$rootScope', '$scope', '$state', '$t
         // /////////////////////
         $scope.isFavorite = $rootScope.isFavorite;
         
+        $scope.caps = function(string){
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+        
         // WATCHERS
         ///////////////////////////////
 
         // INIT
         ///////////////////////////////
         $scope.getStock();
+        $scope.getChart();
     }
 ]);
