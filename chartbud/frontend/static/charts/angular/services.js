@@ -44,9 +44,10 @@ chartsServices.factory('Stock', ['$http',
         StockMethods.get = function(ticker) {
 			return $http.get('/api/stocks/stocks/'+ticker+'/');
 		}
-        StockMethods.getChart = function(ticker, params) {
-			return $http.get('/api/stocks/stocks/'+ticker+'/chart/'+toQueryString(params));
-		}
+        // getChart is defined in the controller, it has a canceller so can't be done here!
+        // StockMethods.getChart = function(ticker, params) {
+		// 	return $http.get('/api/stocks/stocks/'+ticker+'/chart/'+toQueryString(params));
+		// }
     	return StockMethods;
 }]);
 

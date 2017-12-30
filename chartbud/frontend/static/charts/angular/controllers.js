@@ -75,7 +75,7 @@ chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', '$ti
                             stock.volume = r.volume;
                             
                             // update tick difference after 2s back to 0
-                            $timeout(() => stock.tickDifference = null, 2000);
+                            $timeout(() => stock.tickDifference = null, 500);
                         }
                     })
                 });
@@ -155,8 +155,8 @@ chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', '$ti
 ]);
 
 
-chartsControllers.controller('stockCtrl', ['$rootScope', '$scope', '$state', '$timeout', 'Stock',
-    function($rootScope, $scope, $state, $timeout, Stock) {
+chartsControllers.controller('stockCtrl', ['$rootScope', '$scope', '$state', '$timeout', '$q', '$http', 'Stock',
+    function($rootScope, $scope, $state, $timeout, $q, $http, Stock) {
 
         // PARAMS
         ///////////////////////////////
@@ -178,26 +178,34 @@ chartsControllers.controller('stockCtrl', ['$rootScope', '$scope', '$state', '$t
         }
         
         $scope.getChart = function(timespan){
+            // if there is an existing promise, cancel it
+            if ($scope.chartCanceller){
+                $scope.chartCanceller.resolve();
+                $scope.chartCanceller = undefined;
+            }
+            
+            // create (maybe slow) request for the new chart
+            $scope.chartCanceller = $q.defer();
+            $scope.loadingChart = true;
+            $scope.chartError = false;
             var params = {
                 'timespan': timespan || $state.params.timespan || '1d'
             }
-            
-            $scope.loadingChart = true;
-            // $timeout.cancel($scope.chartPromise); // cancels any old timeout promises
-            // console.log(angular.copy($scope.chartPromise))
-            // $scope.chartPromise = $timeout(function(){ // waits 250 ms and executes if there isn't a new request
-                $scope.loadingChart = true;
-                console.log($scope.chartPromise);
-                $scope.currentRequest = Stock.getChart($state.params.ticker, params)
-                .success(function(data){
-                    console.log($scope.chartPromise);
+            $http({
+                url: '/api/stocks/stocks/'+$state.params.ticker+'/chart/'+toQueryString(params),
+                timeout: $scope.chartCanceller.promise
+            })
+            .success(function(data, status, headers, config) {
+                $scope.loadingChart = false;
+                $scope.chartData = data;
+            })
+            .error(function(data, status, headers, config) {
+                // -1 status means cancelled
+                if (status!==-1){
                     $scope.loadingChart = false;
-                    $scope.chartData = data;
-                    console.log(data);
-                    console.log($scope.currentRequest)
-                });
-                console.log($scope.currentRequest)
-            // }, 250);
+                    $scope.chartError = true;
+                }
+            });
         }
         
         // ACTIONS
@@ -206,8 +214,10 @@ chartsControllers.controller('stockCtrl', ['$rootScope', '$scope', '$state', '$t
         $scope.setTimespan = function(timespan){
             var params = angular.copy($state.params);
             params['timespan'] = (timespan=="1d") ? undefined : timespan;
-            $state.go($state.current.name, params, {'notify': false});
-            $scope.getChart(timespan);
+            if (params['timespan'] !== $state.params.timespan){
+                $state.go($state.current.name, params, {'notify': false});
+                $scope.getChart(timespan);
+            }
         }
         
         // user toggles a ticker as favorite or not
@@ -217,6 +227,7 @@ chartsControllers.controller('stockCtrl', ['$rootScope', '$scope', '$state', '$t
         // /////////////////////
         $scope.isFavorite = $rootScope.isFavorite;
         
+        // capitalizes first character of string
         $scope.caps = function(string){
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
