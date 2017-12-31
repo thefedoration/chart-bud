@@ -31,5 +31,5 @@ class TagAdmin(admin.ModelAdmin):
 admin.site.register(Tag, TagAdmin)
 
 class TimeseriesResultAdmin(admin.ModelAdmin):
-    list_display = ('stock', 'time_period',)
+    list_display = ('stock', 'time_period', 'datetime_created', 'datetime_updated')
 admin.site.register(TimeseriesResult, TimeseriesResultAdmin)

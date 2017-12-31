@@ -56,7 +56,7 @@ class StockViewSet(viewsets.ReadOnlyModelViewSet):
         stock = self.get_object()
         timespan = self.request.GET.get('timespan', None)
 
-        if timespan not in TimeseriesResult.TIME_PERIOD_CHOICES:
+        if timespan not in [c[0] for c in TimeseriesResult.TIME_PERIOD_CHOICES]:
             return Response("Invalid Timespan", status=status.HTTP_400_BAD_REQUEST)
 
         result, _ = TimeseriesResult.objects.get_or_create(stock=stock, time_period=timespan)

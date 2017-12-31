@@ -144,7 +144,7 @@ class TimeseriesResult(BaseModel):
 
     # determines if a result is stale based on when it was last updated
     def _result_is_stale(self):
-        if self.datetime_updated and self.result:
+        if self.datetime_updated:
             if self.time_period == "current" and self.datetime_updated > timezone.now() - datetime.timedelta(minutes=1):
                 return False
             if self.time_period == "1d" and self.datetime_updated > timezone.now() - datetime.timedelta(minutes=1):
@@ -153,7 +153,6 @@ class TimeseriesResult(BaseModel):
                 return False
             if self.time_period in ['1m', '3m', '1y', 'max'] and self.datetime_updated > timezone.now() - datetime.timedelta(days=1):
                 return False
-        print "result is stale"
         return True
 
     def get_updated_result(self):
