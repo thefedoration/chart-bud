@@ -1,53 +1,54 @@
-<div class="stock-header">
-    <div ng-show="stock">
-        <h2 class="margin-0">
-            <i class="fa gold dim hoverable" ng-click="setFavorite(stock, !isFavorite(stock))"
-                ng-class="{'fa-star': isFavorite(stock), 'fa-star-o': !isFavorite(stock)}"
-                ng-if="stock" style="cursor:pointer;"></i>
-            {{stock.ticker}} - <span class="dim">{{stock.company.name}}</span>
-        </h2>
-        <div class="layout horizontal">
-            <h3 class="flex" style="margin-bottom:0;">
-                <span class="dim">{{stock.exchange.currency.character}}{{stock.current}}</span>
-                <span class="smaller" style="margin-left:10px;"
-                    ng-class="{'emerald': stock.daily_diff_percent>0, 'alizarin': stock.daily_diff_percent<0, 'white-dim': stock.daily_diff_percent==0}">
-                    <span>
-                        <span ng-if="stock.daily_diff>=0">+</span>{{stock.daily_diff}}
+<div class="layout vertical">
+    <div class="stock-header">
+        <div ng-show="stock">
+            <h2 class="margin-0">
+                <i class="fa gold dim hoverable" ng-click="setFavorite(stock, !isFavorite(stock))"
+                    ng-class="{'fa-star': isFavorite(stock), 'fa-star-o': !isFavorite(stock)}"
+                    ng-if="stock" style="cursor:pointer;"></i>
+                {{stock.ticker}} - <span class="dim">{{stock.company.name}}</span>
+            </h2>
+            <div class="layout horizontal">
+                <h3 class="flex" style="margin-bottom:0;">
+                    <span class="dim">{{stock.exchange.currency.character}}{{stock.current}}</span>
+                    <span class="smaller" style="margin-left:10px;"
+                        ng-class="{'emerald': stock.daily_diff_percent>0, 'alizarin': stock.daily_diff_percent<0, 'white-dim': stock.daily_diff_percent==0}">
+                        <span>
+                            <span ng-if="stock.daily_diff>=0">+</span>{{stock.daily_diff}}
+                        </span>
+                        <span>
+                            (<span ng-if="stock.daily_diff_percent>=0">+</span>{{stock.daily_diff_percent}}%)
+                        </span>
                     </span>
-                    <span>
-                        (<span ng-if="stock.daily_diff_percent>=0">+</span>{{stock.daily_diff_percent}}%)
-                    </span>
-                </span>
-            </h3>
-            <div id="stock-nav" class="nav-items layout horizontal tiny">
-                <a class="nav-item" ng-repeat="timespan in timespans" ng-click="setTimespan(timespan)"
-                ng-class="{'current': (state.params.timespan == timespan) || (!state.params.timespan && timespan=='1d')}">
-                    <span>{{caps(timespan)}}</span>
-                </a>
+                </h3>
+                <div id="stock-nav" class="nav-items layout horizontal tiny">
+                    <a class="nav-item" ng-repeat="timespan in timespans" ng-click="setTimespan(timespan)"
+                    ng-class="{'current': (state.params.timespan == timespan) || (!state.params.timespan && timespan=='1d')}">
+                        <span>{{caps(timespan)}}</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="chart-container white-shadow-background">
-    <loading-animation ng-if="loadingChart" style="position: absolute;right: 20px;"></loading-animation>
-    <canvas id="chart-canvas"></canvas>
-</div>
+    <div class="chart-container white-shadow-background flex">
+        <loading-animation ng-if="loadingChart" style="position: absolute;right: 20px;"></loading-animation>
+        <canvas id="chart-canvas"></canvas>
+    </div>
 
-<div id="stock-nav" class="nav-items layout horizontal flex wrap">
-    <a ui-sref="." class="nav-item" ng-class="{'current': state.current.name=='main.stock'}">
-        <span>Stock</span>
-    </a>
-    <a ui-sref=".company" class="nav-item" ng-class="{'current': state.current.name=='main.stock.company'}">
-        <span>Company</span>
-    </a>
-    <a ui-sref=".news" class="nav-item" ng-class="{'current': state.current.name=='main.stock.news'}">
-        <span>News</span>
-    </a>
-    <a ui-sref=".premarket" class="nav-item" ng-class="{'current': state.current.name=='main.stock.premarket'}">
-        <span>Pre-market</span>
-    </a>
+    <div id="stock-nav" class="nav-items layout horizontal flex wrap">
+        <a ui-sref="." class="nav-item" ng-class="{'current': state.current.name=='main.stock'}">
+            <span>Stock</span>
+        </a>
+        <a ui-sref=".company" class="nav-item" ng-class="{'current': state.current.name=='main.stock.company'}">
+            <span>Company</span>
+        </a>
+        <a ui-sref=".news" class="nav-item" ng-class="{'current': state.current.name=='main.stock.news'}">
+            <span>News</span>
+        </a>
+        <a ui-sref=".premarket" class="nav-item" ng-class="{'current': state.current.name=='main.stock.premarket'}">
+            <span>Pre-market</span>
+        </a>
+    </div>
+    <div class="content-container" ui-view>
+        
+    </div>
 </div>
-<div class="content-container" ui-view>
-    
-</div>
-

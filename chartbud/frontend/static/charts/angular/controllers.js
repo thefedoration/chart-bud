@@ -177,6 +177,7 @@ chartsControllers.controller('stockCtrl', ['$rootScope', '$scope', '$state', '$t
             });
         }
         
+        // gets chart data based on current params
         $scope.getChart = function(timespan){
             // if there is an existing promise, cancel it
             if ($scope.chartCanceller){
@@ -229,51 +230,52 @@ chartsControllers.controller('stockCtrl', ['$rootScope', '$scope', '$state', '$t
                             randomScalingFactor(),
                             randomScalingFactor()
                         ],
-                    }, {
-                        label: "Dashed",
-                        fill: false,
-                        backgroundColor: window.chartColors.green,
-                        borderColor: window.chartColors.green,
-                        borderDash: [5, 5],
-                        data: [
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor()
-                        ],
-                    }, {
-                        label: "Filled",
-                        backgroundColor: window.chartColors.red,
-                        borderColor: window.chartColors.red,
-                        data: [
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor()
-                        ],
-                        fill: true,
-                    }]
+                    }
+                    // , {
+                    //     label: "Dashed",
+                    //     fill: false,
+                    //     backgroundColor: window.chartColors.green,
+                    //     borderColor: window.chartColors.green,
+                    //     borderDash: [5, 5],
+                    //     data: [
+                    //         randomScalingFactor(),
+                    //         randomScalingFactor(),
+                    //         randomScalingFactor(),
+                    //         randomScalingFactor(),
+                    //         randomScalingFactor(),
+                    //         randomScalingFactor(),
+                    //         randomScalingFactor()
+                    //     ],
+                    // }, {
+                    //     label: "Filled",
+                    //     backgroundColor: window.chartColors.red,
+                    //     borderColor: window.chartColors.red,
+                    //     data: [
+                    //         randomScalingFactor(),
+                    //         randomScalingFactor(),
+                    //         randomScalingFactor(),
+                    //         randomScalingFactor(),
+                    //         randomScalingFactor(),
+                    //         randomScalingFactor(),
+                    //         randomScalingFactor()
+                    //     ],
+                    //     fill: true,
+                    // }
+                    ]
                 },
                 options: {
                     responsive: true,
                     title:{
-                        display:true,
-                        text:'Chart.js Line Chart'
+                        display:false,
                     },
                     tooltips: {
                         mode: 'index',
                         intersect: false,
                     },
-                    hover: {
-                        mode: 'nearest',
-                        intersect: true
-                    },
+                    // hover: {
+                    //     mode: 'nearest',
+                    //     intersect: true
+                    // },
                     scales: {
                         xAxes: [{
                             display: true,
@@ -294,7 +296,7 @@ chartsControllers.controller('stockCtrl', ['$rootScope', '$scope', '$state', '$t
             };
 
             var ctx = document.getElementById("chart-canvas").getContext("2d");
-            window.myLine = new Chart(ctx, config);
+            $scope.chart = new Chart(ctx, config);
         }
         
         
