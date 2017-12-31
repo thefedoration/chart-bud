@@ -174,6 +174,7 @@ chartsControllers.controller('stockCtrl', ['$rootScope', '$scope', '$state', '$t
             .success(function(data){
                 $scope.loading = false;
                 $scope.stock = data;
+                $scope.getChart();
             });
         }
         
@@ -212,90 +213,107 @@ chartsControllers.controller('stockCtrl', ['$rootScope', '$scope', '$state', '$t
         
         // draws chart based on data
         $scope.drawChart = function(){
+            // destroy old chart
+            if ($scope.chart){
+                $scope.chart.destroy();
+            }
+            
+            // grab element we're charting onto
+            var ctx = document.getElementById("chart-canvas").getContext("2d");
+            
+            // get util colors
+            var gradientFill = ctx.createLinearGradient(0, 0, 0, 400);
+            // gradientFill.addColorStop(0, "#3498db");
+            gradientFill.addColorStop(0, "rgba(0,0,0,0.25)");
+            gradientFill.addColorStop(1, "transparent");
+
+            // get data we're mapping
+            $scope.labels = $scope.chartData.map(d => d.timestamp);
+            $scope.close = $scope.chartData.map(d => d.close);
+            
+            // create chartjs config
             var config = {
                 type: 'line',
                 data: {
-                    labels: ["January", "February", "March", "April", "May", "June", "July"],
-                    datasets: [{
-                        label: "Unfilled",
-                        fill: false,
-                        backgroundColor: window.chartColors.blue,
-                        borderColor: window.chartColors.blue,
-                        data: [
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor()
-                        ],
-                    }
-                    // , {
-                    //     label: "Dashed",
-                    //     fill: false,
-                    //     backgroundColor: window.chartColors.green,
-                    //     borderColor: window.chartColors.green,
-                    //     borderDash: [5, 5],
-                    //     data: [
-                    //         randomScalingFactor(),
-                    //         randomScalingFactor(),
-                    //         randomScalingFactor(),
-                    //         randomScalingFactor(),
-                    //         randomScalingFactor(),
-                    //         randomScalingFactor(),
-                    //         randomScalingFactor()
-                    //     ],
-                    // }, {
-                    //     label: "Filled",
-                    //     backgroundColor: window.chartColors.red,
-                    //     borderColor: window.chartColors.red,
-                    //     data: [
-                    //         randomScalingFactor(),
-                    //         randomScalingFactor(),
-                    //         randomScalingFactor(),
-                    //         randomScalingFactor(),
-                    //         randomScalingFactor(),
-                    //         randomScalingFactor(),
-                    //         randomScalingFactor()
-                    //     ],
-                    //     fill: true,
-                    // }
+                    labels: $scope.labels,
+                    datasets: [
+                        {
+                            label: "Share Price",
+                            fill: true,
+                            backgroundColor: gradientFill,
+                            borderColor: '#3498db',
+                            borderWidth: 2,
+                            data: $scope.close,
+                            pointRadius: 0,
+                            pointHitRadius: 2,
+                            pointHoverRadius: 2,
+                            lineTension: 0.1,
+                        },
                     ]
                 },
                 options: {
                     responsive: true,
-                    title:{
-                        display:false,
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: false
                     },
                     tooltips: {
-                        mode: 'index',
                         intersect: false,
+                        mode: 'index',
                     },
-                    // hover: {
-                    //     mode: 'nearest',
-                    //     intersect: true
-                    // },
+                    hover: {
+                        mode: 'index',
+                        intersect: false
+                    },
                     scales: {
                         xAxes: [{
-                            display: true,
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Month'
+                            type: 'time',
+                            distribution: 'series',
+                            time: {
+                                displayFormats: {
+                                    minute: 'k:mm',
+                                    hour: 'D MMM k:mm',
+                                    day: 'D MMM',
+                                    quarter: 'MMM YYYY'
+                                },
+                            },
+                            gridLines: {
+                                drawOnChartArea: false,
+                                color: 'transparent',
+                            },
+                            ticks: {
+                                fontColor: 'rgba(255,255,255,0.25)',
+                                fontSize: '10',
+                                fontStyle: 'bold',
+                                maxRotation: 0,
+                                minRotation: 0,
+                                autoSkip: true,
+                                autoSkipPadding: 20,
+                                source: 'labels',
                             }
                         }],
                         yAxes: [{
-                            display: true,
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Value'
+                            gridLines: {
+                                color: 'rgba(255,255,255, 0.03)',
+                                tickMarkLength: 5
+                            },
+                            ticks: {
+                                fontColor: 'rgba(255,255,255,0.25)',
+                                fontSize: '12',
+                                fontStyle: 'bold',
                             }
                         }]
+                    },
+                    elements: {
+                        point: {
+                            radius: 0,
+                            hitRadius: 2
+                        }
                     }
                 }
             };
-
-            var ctx = document.getElementById("chart-canvas").getContext("2d");
             $scope.chart = new Chart(ctx, config);
         }
         
@@ -330,6 +348,5 @@ chartsControllers.controller('stockCtrl', ['$rootScope', '$scope', '$state', '$t
         // INIT
         ///////////////////////////////
         $scope.getStock();
-        $scope.getChart();
     }
 ]);

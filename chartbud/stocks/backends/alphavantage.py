@@ -21,7 +21,6 @@ class AlphavantageBackend(BaseBackend):
         self.apikey = "E4I0D671EVBSNQVV"
 
     def get_result(self, timespan):
-        return [] # TODO: remove temporary result
         if timespan == "current":
             return self.get_current()
         elif timespan == "1d":
