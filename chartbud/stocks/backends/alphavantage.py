@@ -8,6 +8,9 @@ class AlphavantageBackend(BaseBackend):
     """
     Exposes API common to all stock backends
     """
+
+    valid_timespans = ["current", "1d", "5d", "1m", "3m", "1y", "max"]
+
     def __init__(self, ticker, *args, **kwargs):
         self.ticker = ticker
         self.rootUrl = "https://www.alphavantage.co/query"
@@ -16,6 +19,24 @@ class AlphavantageBackend(BaseBackend):
     def authenticate(self):
         # TODO: Take out env vars
         self.apikey = "E4I0D671EVBSNQVV"
+
+    def get_result(self, timespan):
+        if timespan == "current":
+            return self.get_current()
+        elif timespan == "1d":
+            return self.get_1d_series()
+        elif timespan == "5d":
+            return self.get_5d_series()
+        elif timespan == "1m":
+            return self.get_1m_series()
+        elif timespan == "3m":
+            return self.get_3m_series()
+        elif timespan == "1y":
+            return self.get_1y_series()
+        elif timespan == "max":
+            return self.get_max_series()
+        else:
+            return None
 
     def get_current(self, interval="60min"):
         """

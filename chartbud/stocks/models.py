@@ -1,7 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from jsonfield import JSONField
+import datetime
+
 from django.db import models
+from django.utils import timezone
+
+from stocks.backends import AlphavantageBackend
+
 
 class BaseModel(models.Model):
     """
@@ -111,3 +118,54 @@ class Tag(BaseModel):
 
     def __unicode__(self):
         return u"%s" % (self.name)
+
+
+class TimeseriesResult(BaseModel):
+    """
+    A saved timeseries for a stock based on time period & time interval
+    """
+
+    TIME_PERIOD_CHOICES = (
+        ('current', 'Current'),
+        ('1d', 'One Day'),
+        ('5d', 'Five Days'),
+        ('1m', 'One Month'),
+        ('3m', 'Three Months'),
+        ('1y', 'One Year'),
+        ('max', 'Max Time Period'),
+    )
+
+    stock = models.ForeignKey('Stock', null=False, blank=False)
+    time_period = models.CharField(
+        max_length=2,
+        choices=TIME_PERIOD_CHOICES,
+        blank=False, null=False)
+    result = JSONField()
+
+    # determines if a result is stale based on when it was last updated
+    def _result_is_stale(self):
+        if self.datetime_updated and self.result:
+            if self.time_period == "current" and self.datetime_updated > timezone.now() - datetime.timedelta(minutes=1):
+                return False
+            if self.time_period == "1d" and self.datetime_updated > timezone.now() - datetime.timedelta(minutes=1):
+                return False
+            if self.time_period == "5d" and self.datetime_updated > timezone.now() - datetime.timedelta(minutes=15):
+                return False
+            if self.time_period in ['1m', '3m', '1y', 'max'] and self.datetime_updated > timezone.now() - datetime.timedelta(days=1):
+                return False
+        print "result is stale"
+        return True
+
+    def get_updated_result(self):
+        if self._result_is_stale():
+            backend = AlphavantageBackend(self.stock.full_ticker)
+            data = backend.get_result(self.time_period)
+            self.result = data
+            self.save()
+        return self.result
+
+    class Meta():
+        unique_together = (("stock", "time_period"),)
+
+    def __unicode__(self):
+        return u"%s - %s" % (self.stock.ticker, self.time_period)

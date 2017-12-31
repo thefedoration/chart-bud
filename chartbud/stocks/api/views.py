@@ -5,9 +5,8 @@ from rest_framework import (viewsets, filters, status)
 from rest_framework.response import Response
 from rest_framework.decorators import detail_route
 
-from stocks.backends import AlphavantageBackend
 from stocks.models import (
-    Exchange, Company, Tag, Stock
+    Exchange, Company, Tag, Stock, TimeseriesResult
 )
 from stocks.api.serializers import (
     ExchangeSerializer,
@@ -56,24 +55,13 @@ class StockViewSet(viewsets.ReadOnlyModelViewSet):
     def chart(self, request, ticker=None):
         stock = self.get_object()
         timespan = self.request.GET.get('timespan', None)
-        backend = AlphavantageBackend(stock.full_ticker)
 
-        if timespan == "current":
-            return Response(backend.get_current(), status=status.HTTP_200_OK)
-        elif timespan == "1d":
-            return Response(backend.get_1d_series(), status=status.HTTP_200_OK)
-        elif timespan == "5d":
-            return Response(backend.get_5d_series(), status=status.HTTP_200_OK)
-        elif timespan == "1m":
-            return Response(backend.get_1m_series(), status=status.HTTP_200_OK)
-        elif timespan == "3m":
-            return Response(backend.get_3m_series(), status=status.HTTP_200_OK)
-        elif timespan == "1y":
-            return Response(backend.get_1y_series(), status=status.HTTP_200_OK)
-        elif timespan == "max":
-            return Response(backend.get_max_series(), status=status.HTTP_200_OK)
-        else:
+        if timespan not in TimeseriesResult.TIME_PERIOD_CHOICES:
             return Response("Invalid Timespan", status=status.HTTP_400_BAD_REQUEST)
+
+        result, _ = TimeseriesResult.objects.get_or_create(stock=stock, time_period=timespan)
+        data = result.get_updated_result()
+        return Response(data, status=status.HTTP_200_OK)
 
 
 class TagViewSet(viewsets.ReadOnlyModelViewSet):

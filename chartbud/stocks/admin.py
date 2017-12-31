@@ -29,3 +29,7 @@ admin.site.register(Stock, StockAdmin)
 class TagAdmin(admin.ModelAdmin):
     list_display = ('name',)
 admin.site.register(Tag, TagAdmin)
+
+class TimeseriesResultAdmin(admin.ModelAdmin):
+    list_display = ('stock', 'time_period',)
+admin.site.register(TimeseriesResult, TimeseriesResultAdmin)
