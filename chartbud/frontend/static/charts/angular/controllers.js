@@ -100,7 +100,7 @@ chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', '$ti
         
         // sets a stock as favorited or not
         $rootScope.setFavorite = function(stock, isFavorite){
-            $rootScope.$localStore['favorites'][stock.ticker] = isFavorite;
+            $rootScope.$localStore['favorites'][stock.ticker] = (isFavorite) ? true : false;
         }
         
         // clears filters by removing all url params besides ticker
@@ -223,7 +223,6 @@ chartsControllers.controller('stockCtrl', ['$rootScope', '$scope', '$state', '$t
             
             // get util colors
             var gradientFill = ctx.createLinearGradient(0, 0, 0, 400);
-            // gradientFill.addColorStop(0, "#3498db");
             gradientFill.addColorStop(0, "rgba(0,0,0,0.25)");
             gradientFill.addColorStop(1, "transparent");
 
@@ -260,8 +259,8 @@ chartsControllers.controller('stockCtrl', ['$rootScope', '$scope', '$state', '$t
                         display: false
                     },
                     tooltips: {
-                        intersect: false,
                         mode: 'index',
+                        intersect: false,
                     },
                     hover: {
                         mode: 'index',
@@ -291,7 +290,7 @@ chartsControllers.controller('stockCtrl', ['$rootScope', '$scope', '$state', '$t
                                 minRotation: 0,
                                 autoSkip: true,
                                 autoSkipPadding: 20,
-                                source: 'labels',
+                                // source: 'labels',
                             }
                         }],
                         yAxes: [{

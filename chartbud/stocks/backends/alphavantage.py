@@ -38,7 +38,7 @@ class AlphavantageBackend(BaseBackend):
         else:
             return None
 
-    def get_current(self, interval="60min"):
+    def get_current(self, interval="1min"):
         """
         Loads up the fastest, most up to date api, gets the last point
         """
@@ -48,21 +48,27 @@ class AlphavantageBackend(BaseBackend):
         data = self._clean_data(r.json()["Time Series (%s)" % interval])
         return data[-1]
 
-    def get_1d_series(self, interval="5min"):
-        # start_date = datetime.strptime('Jun 1 2005  1:33PM', '%b %d %Y %I:%M%p')
+    def get_1d_series(self, interval="1min"):
+        print '%s?function=%s&symbol=%s&interval=%s&apikey=%s&outputsize=full' % (
+            self.rootUrl, "TIME_SERIES_INTRADAY", self.ticker, interval, self.apikey
+        )
         r = requests.get('%s?function=%s&symbol=%s&interval=%s&apikey=%s&outputsize=full' % (
             self.rootUrl, "TIME_SERIES_INTRADAY", self.ticker, interval, self.apikey
         ))
+        print r.__dict__
+        print r.json()
         data = self._clean_data(r.json()["Time Series (%s)" % interval])
-        data = [d for d in data if datetime.datetime.strptime(d["timestamp"], '%Y-%m-%d %H:%M:%S') > datetime.datetime.now() - datetime.timedelta(days=1)]
+        last_tick = datetime.datetime.strptime(data[-1]["timestamp"], '%Y-%m-%d %H:%M:%S')
+        data = [d for d in data if datetime.datetime.strptime(d["timestamp"], '%Y-%m-%d %H:%M:%S') > last_tick - datetime.timedelta(days=1)]
         return data
 
-    def get_5d_series(self, interval="30min"):
+    def get_5d_series(self, interval="5min"):
         r = requests.get('%s?function=%s&symbol=%s&interval=%s&apikey=%s&outputsize=full' % (
             self.rootUrl, "TIME_SERIES_INTRADAY", self.ticker, interval, self.apikey
         ))
+        print r.json()
         data = self._clean_data(r.json()["Time Series (%s)" % interval])
-        data = [d for d in data if datetime.datetime.strptime(d["timestamp"], '%Y-%m-%d %H:%M:%S') > datetime.datetime.now() - datetime.timedelta(days=5)]
+        data = [d for d in data if datetime.datetime.strptime(d["timestamp"], '%Y-%m-%d %H:%M:%S') > datetime.datetime.now() - datetime.timedelta(days=7)]
         return data
 
     def get_1m_series(self):
