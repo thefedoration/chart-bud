@@ -61,7 +61,10 @@ class StockViewSet(viewsets.ReadOnlyModelViewSet):
 
         result, _ = TimeseriesResult.objects.get_or_create(stock=stock, time_period=timespan)
         data = result.get_updated_result()
-        return Response(data, status=status.HTTP_200_OK)
+        if data:
+            return Response(data, status=status.HTTP_200_OK)
+        else:
+            return Response(data, status=status.HTTP_400_BAD_REQUEST)
 
 
 class TagViewSet(viewsets.ReadOnlyModelViewSet):

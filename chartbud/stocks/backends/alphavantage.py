@@ -38,69 +38,78 @@ class AlphavantageBackend(BaseBackend):
         else:
             return None
 
-    def get_current(self, interval="1min"):
+    def get_current(self):
         """
-        Loads up the fastest, most up to date api, gets the last point
+        Loads up the fastest, most up to date api, gets the last 2 points
+        Returns 2 so that we can set yesterday's close if need to
         """
-        r = requests.get('%s?function=%s&symbol=%s&interval=%s&apikey=%s' % (
-            self.rootUrl, "TIME_SERIES_INTRADAY", self.ticker, interval, self.apikey
+        r = requests.get('%s?function=%s&symbol=%s&apikey=%s' % (
+            self.rootUrl, "TIME_SERIES_DAILY", self.ticker, self.apikey
         ))
-        data = self._clean_data(r.json()["Time Series (%s)" % interval])
-        return data[-1]
+        key = "Time Series (Daily)"
+        if key in r.json():
+            data = self._clean_data(r.json()[key])
+            return data[-2:]
 
     def get_1d_series(self, interval="1min"):
-        print '%s?function=%s&symbol=%s&interval=%s&apikey=%s&outputsize=full' % (
-            self.rootUrl, "TIME_SERIES_INTRADAY", self.ticker, interval, self.apikey
-        )
         r = requests.get('%s?function=%s&symbol=%s&interval=%s&apikey=%s&outputsize=full' % (
             self.rootUrl, "TIME_SERIES_INTRADAY", self.ticker, interval, self.apikey
         ))
-        print r.__dict__
-        print r.json()
-        data = self._clean_data(r.json()["Time Series (%s)" % interval])
-        last_tick = datetime.datetime.strptime(data[-1]["timestamp"], '%Y-%m-%d %H:%M:%S')
-        data = [d for d in data if datetime.datetime.strptime(d["timestamp"], '%Y-%m-%d %H:%M:%S') > last_tick - datetime.timedelta(days=1)]
-        return data
+        key = "Time Series (%s)" % interval
+        if key in r.json():
+            data = self._clean_data(r.json()[key])
+            last_tick = datetime.datetime.strptime(data[-1]["timestamp"], '%Y-%m-%d %H:%M:%S')
+            data = [d for d in data if datetime.datetime.strptime(d["timestamp"], '%Y-%m-%d %H:%M:%S') > last_tick - datetime.timedelta(days=1)]
+            return data
 
     def get_5d_series(self, interval="5min"):
         r = requests.get('%s?function=%s&symbol=%s&interval=%s&apikey=%s&outputsize=full' % (
             self.rootUrl, "TIME_SERIES_INTRADAY", self.ticker, interval, self.apikey
         ))
-        print r.json()
-        data = self._clean_data(r.json()["Time Series (%s)" % interval])
-        data = [d for d in data if datetime.datetime.strptime(d["timestamp"], '%Y-%m-%d %H:%M:%S') > datetime.datetime.now() - datetime.timedelta(days=7)]
-        return data
+        key = "Time Series (%s)" % interval
+        if key in r.json():
+            data = self._clean_data(r.json()[key])
+            data = [d for d in data if datetime.datetime.strptime(d["timestamp"], '%Y-%m-%d %H:%M:%S') > datetime.datetime.now() - datetime.timedelta(days=7)]
+            return data
 
     def get_1m_series(self):
         r = requests.get('%s?function=%s&symbol=%s&apikey=%s&outputsize=full' % (
             self.rootUrl, "TIME_SERIES_DAILY", self.ticker, self.apikey
         ))
-        data = self._clean_data(r.json()["Time Series (Daily)"])
-        data = [d for d in data if datetime.datetime.strptime(d["timestamp"], '%Y-%m-%d') > datetime.datetime.now() - datetime.timedelta(days=30)]
-        return data
+        key = "Time Series (Daily)"
+        if key in r.json():
+            data = self._clean_data(r.json()[key])
+            data = [d for d in data if datetime.datetime.strptime(d["timestamp"], '%Y-%m-%d') > datetime.datetime.now() - datetime.timedelta(days=30)]
+            return data
 
     def get_3m_series(self):
         r = requests.get('%s?function=%s&symbol=%s&apikey=%s&outputsize=full' % (
             self.rootUrl, "TIME_SERIES_DAILY", self.ticker, self.apikey
         ))
-        data = self._clean_data(r.json()["Time Series (Daily)"])
-        data = [d for d in data if datetime.datetime.strptime(d["timestamp"], '%Y-%m-%d') > datetime.datetime.now() - datetime.timedelta(days=90)]
-        return data
+        key = "Time Series (Daily)"
+        if key in r.json():
+            data = self._clean_data(r.json()[key])
+            data = [d for d in data if datetime.datetime.strptime(d["timestamp"], '%Y-%m-%d') > datetime.datetime.now() - datetime.timedelta(days=90)]
+            return data
 
     def get_1y_series(self):
         r = requests.get('%s?function=%s&symbol=%s&apikey=%s&outputsize=full' % (
             self.rootUrl, "TIME_SERIES_DAILY", self.ticker, self.apikey
         ))
-        data = self._clean_data(r.json()["Time Series (Daily)"])
-        data = [d for d in data if datetime.datetime.strptime(d["timestamp"], '%Y-%m-%d') > datetime.datetime.now() - datetime.timedelta(days=365)]
-        return data
+        key = "Time Series (Daily)"
+        if key in r.json():
+            data = self._clean_data(r.json()[key])
+            data = [d for d in data if datetime.datetime.strptime(d["timestamp"], '%Y-%m-%d') > datetime.datetime.now() - datetime.timedelta(days=365)]
+            return data
 
     def get_max_series(self):
         r = requests.get('%s?function=%s&symbol=%s&apikey=%s&outputsize=full' % (
             self.rootUrl, "TIME_SERIES_WEEKLY", self.ticker, self.apikey
         ))
-        data = self._clean_data(r.json()["Weekly Time Series"])
-        return data
+        key = "Weekly Time Series"
+        if key in r.json():
+            data = self._clean_data(r.json()[key])
+            return data
 
     def _clean_data(self, data):
         """
