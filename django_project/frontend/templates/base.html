@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Chart Bud</title>
+        
+        {% include 'imports.html' %}
+
+		{% block additional_headers %}{% endblock %}
+
+		{% include 'analytics_head.html' %}
+	</head>
+
+	<body>
+		{% include 'analytics_body.html' %}
+        {% include 'header.html' %}
+        
+		{% block content %}{% endblock %}
+        
+        {% include 'footer.html' %}
+		{% block additional_footers %}{% endblock %}
+	</body>
+</html>
