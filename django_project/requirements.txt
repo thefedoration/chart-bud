@@ -1,4 +1,7 @@
 Django>=1.8,<2.0
+celery
 djangorestframework
 django_compressor
-gunicorn
+# gunicorn
+psycopg2
+redis
