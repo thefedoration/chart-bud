@@ -1,7 +1,10 @@
 Django>=1.8,<2.0
 celery
-djangorestframework
 django_compressor
+django-filter
+django-libsass
+djangorestframework
 # gunicorn
+jsonfield
 psycopg2
 redis

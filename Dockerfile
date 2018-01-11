@@ -32,6 +32,14 @@ RUN mkdir media static logs
 #read
 VOLUME ["$DOCKYARD_SRVHOME/media/", "$DOCKYARD_SRVHOME/logs/"]
 
+# convert this to our paths to make the build faster
+# RUN mkdir /code
+# WORKDIR /code
+# ADD ./requirements/docker.txt /code/requirements/
+# RUN pip install -r /code/requirements/docker.txt
+# ADD ./code/
+
+
 # Copy application source code to SRCDIR
 COPY $DOCKYARD_SRC $DOCKYARD_SRVPROJ
 
