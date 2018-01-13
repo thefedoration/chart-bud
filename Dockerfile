@@ -27,13 +27,12 @@ COPY ./config/requirements.txt /code
 RUN pip install -r requirements.txt
 COPY ./src/ ./
 
-# Create application subdirectories & read logs
-RUN mkdir media static logs
-# VOLUME ["/code/media/", "/code/logs/"]
-
-
 # Go to server project, make entrypoints executable
 RUN ["chmod", "+x", "./run_web.sh", "./run_celery.sh"]
+
+# Create application subdirectories
+# RUN mkdir media static logs
+# VOLUME ["/code/media/", "/code/logs/"]
 
 # create unprivileged user
 RUN adduser --disabled-password --gecos '' myuser
@@ -41,5 +40,3 @@ RUN adduser --disabled-password --gecos '' myuser
 # COPY ./django_nginx.conf /etc/nginx/sites-available/
 # RUN ln -s /etc/nginx/sites-available/django_nginx.conf /etc/nginx/sites-enabled
 # RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-# RUN ["chmod", "+x", "/docker-entrypoint.sh"]
-# ENTRYPOINT ["/docker-entrypoint.sh"]
