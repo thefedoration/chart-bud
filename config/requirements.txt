@@ -4,7 +4,7 @@ django_compressor
 django-filter
 django-libsass
 djangorestframework
-# gunicorn
+gunicorn
 jsonfield
 psycopg2
 redis

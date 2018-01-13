@@ -1,6 +1,18 @@
 version: '3'
 
 services:
+  nginx:
+    image: nginx:latest
+    hostname: nginx
+    ports:
+        - "8000:8000"
+    volumes:
+        - ./code:/code
+        - ./config/nginx:/etc/nginx/conf.d
+        # - ./code/static:/static
+    depends_on:
+        - web
+        
   db:
     image: postgres
     hostname: db
@@ -30,17 +42,17 @@ services:
       context: .
       dockerfile: Dockerfile
     hostname: web
+    # command: bash -c 'python manage.py makemigrations && python manage.py migrate && gunicorn wsgi 0.0.0.0:8001'
     command: ./run_web.sh
     volumes:
       - .:/app
-    ports:
-      - "8000:8000"
+      # - ./code/static:/static
     links:
       - db
       - rabbit
       - redis
-    depends_on:
-      - db
+    expose:
+      - "8000"
 
   worker:
     build:

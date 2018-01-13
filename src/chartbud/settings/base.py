@@ -20,7 +20,7 @@ SECRET_KEY = 'wm!r!v0t7n1!&wa1)i7*dfbocy6gvtxqoxgde@8%78z0o*5*l-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 TEMPLATE_DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['web']
 ROOT_URLCONF = 'chartbud.urls'
 WSGI_APPLICATION = 'wsgi.application'
 
