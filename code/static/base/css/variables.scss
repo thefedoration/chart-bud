@@ -1,0 +1,54 @@
+// text/shadow variables
+$white: #ffffff;
+$charcoal: #333333;
+$shadow: rgba(0,0,0,0.1);
+$white-shadow: rgba(255,255,255,0.1);
+$white-dim: rgba(255,255,255,0.25);
+
+// background variables
+$bg1: #123051;
+$bg2: #267871;
+$clouds: #ecf0f1;
+
+// accent variables
+$emerald: #2ecc71;
+$peter-river: #3498db;
+$alizarin: #e74c3c;
+$gold: #f1c40f;
+
+// media break points
+$break-large: 900px;
+$break-medium: 700px;
+$break-small: 500px;
+
+
+
+// background styles
+.white-background{background-color:$white !important;}
+.clouds-background{background-color:$clouds !important;}
+.charcoal-background{color:$white !important; background-color:$charcoal !important;}
+.shadow-background{color:$white !important; background-color:$shadow !important;}
+.white-shadow-background{color:$white !important; background-color:$white-shadow !important;}
+.emerald-background{color:$white !important; background-color:$emerald !important;}
+.peter-river-background{color:$white !important; background-color:$peter-river !important;}
+.alizarin-background{color:$white !important; background-color:$alizarin !important;}
+.gold-background{color:$white !important; background-color:$gold !important;}
+.white-dim-background{color:$white !important; background-color:$white-dim !important;}
+.bg1-background{color:$white !important; background-color:$bg1 !important;}
+.bg2-background{color:$white !important; background-color:$bg2 !important;}
+
+// text styles
+.white{color:$white !important;}
+.clouds{color:$clouds !important;}
+.charcoal{color:$charcoal !important;}
+.shadow{color:$shadow !important;}
+.white-shadow{color:$white-shadow !important;}
+.emerald{color:$emerald !important;}
+.peter-river{color:$peter-river !important;}
+.alizarin{color:$alizarin !important;}
+.gold{color:$gold !important;}
+.white-dim{color:$white-dim !important;}
+.bg1{color:$bg1 !important;}
+.bg2{color:$bg2 !important;}
+
+

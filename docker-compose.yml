@@ -9,7 +9,7 @@ services:
     volumes:
         - ./code:/code
         - ./config/nginx:/etc/nginx/conf.d
-        # - ./code/static:/static
+        - ./code/static:/static
     depends_on:
         - web
         
@@ -42,11 +42,10 @@ services:
       context: .
       dockerfile: Dockerfile
     hostname: web
-    # command: bash -c 'python manage.py makemigrations && python manage.py migrate && gunicorn wsgi 0.0.0.0:8001'
     command: ./run_web.sh
     volumes:
       - .:/app
-      # - ./code/static:/static
+      - ./code/static:/static
     links:
       - db
       - rabbit

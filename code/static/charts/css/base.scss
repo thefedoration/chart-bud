@@ -1,0 +1,238 @@
+.charts-page{
+    .charts-sidebar{
+        width:350px;
+        overflow:hidden;
+        border-right:1px solid $white-shadow;
+        padding-bottom:0;
+        
+        .sidebar-section{
+            margin-bottom:20px;
+            
+            &:last-child{
+                margin-bottom:0;
+            }
+            
+            .filter{
+                display:block;
+                margin-top:10px;
+                border:1px solid $white-shadow;
+                border-radius:3px;
+                min-height:36px;
+                position:relative;
+                
+                &.flex{
+                    margin-left:5px;
+                    margin-right:5px;
+                    
+                    &:last-child{
+                        margin-right:0;
+                    }
+                    &:first-child{
+                        margin-left:0;
+                    }
+                }
+                
+                &.dropdown{
+                    padding:10px;
+                    
+                    .dropdown-label{
+                        font-weight:bold;
+                        i{
+                            float:right;
+                        }
+
+                        .notification{
+                            font-size: 10px;
+                            padding: 1px 6px;
+                            border-radius: 8px;
+                            float:right;
+                        }
+                    }
+                    
+                    .options{
+                        position:absolute;
+                        top:100%;
+                        // left:-1px;
+                        // right:-1px;
+                        width:calc(200% + 12px);
+                        display:none;
+                        max-height:200px;
+                        overflow:auto;
+                        z-index:100;
+                        padding:10px;
+                        box-shadow:0 1px 2px $shadow;
+                        border-top:1px solid $shadow;
+                        border-radius:3px;
+                        
+                        &.right-aligned{
+                            right:-1px;
+                        }
+                        &.left-aligned{
+                            left:-1px;
+                        }
+                        
+                        .option{
+                            margin-bottom:5px;
+                            label{
+                                cursor:pointer;
+                            }
+                            
+                            &:last-child{
+                                margin-bottom:0;
+                            }
+                            input{
+                                cursor:pointer;
+                                margin-right:5px;
+                            }
+                        }
+                    }
+                    
+                    &:hover{
+                        background:$white;
+                        color:$charcoal;
+                        .options{
+                            display:block;
+                        }
+                    }
+                }
+                &.search{
+                    input{
+                        padding:10px;
+                        background:transparent;
+                        border:none;
+                        color:$white;
+                        width:100%;
+                        
+                        &::-webkit-input-placeholder {
+                          color:rgba(255,255,255,0.5);
+                        }
+                        &::-moz-placeholder {
+                          color:rgba(255,255,255,0.5);
+                        }
+                        &:-ms-input-placeholder {
+                          color:rgba(255,255,255,0.5);
+                        }
+                        &:-moz-placeholder {
+                          color:rgba(255,255,255,0.5);
+                        }
+                    }
+                    i{
+                        position:absolute;
+                        right:0;
+                        top:0;
+                        padding:10px;
+                    }
+                }
+                
+                &.ordering{
+                    display: inline-block;
+                    padding: 0;
+                    border: none;
+                    min-height: 0;
+                    margin: 0;
+                    float:right;
+                    width: 120px;
+                    
+                    &:hover{
+                        background:transparent;
+                        color:$white;
+                    }
+                        
+                    .dropdown-label{
+                        text-align:right;
+                        i{
+                            margin-left:5px;
+                        }
+                    }
+                }
+                
+                &.boolean{
+                    cursor:pointer;
+                    line-height: 36px;
+                    text-align: center;
+                    font-size: 16px;
+                    
+                    &:hover{
+                        background:$shadow;
+                    }
+                }
+            }
+            
+            .tickers{
+                margin-top:10px;
+                overflow:auto;
+                
+                sidebar-ticker{
+                    padding:5px 0;
+                    border-radius:3px;
+                    min-height:64px;
+                    cursor:pointer;
+                    border-right:3px solid transparent;
+                    transition: border-right-color 0.5s ease-in-out;
+                    
+                    &:hover, &.current{
+                        background-color: $shadow;
+                    }
+                    
+                    &.increasing{
+                        border-right-color:$emerald;
+                    }
+                    &.decreasing{
+                        border-right-color:$alizarin;
+                    }
+                    
+                    .icon-container{
+                        padding:10px;
+                        
+                        i{
+                            font-size:16px;
+                        }
+                    }
+                    .name-container{
+                        padding:10px 0;
+                        
+                        .tick-icon{
+                            opacity:0;
+                            margin-left:5px;
+                            transition: all 0.5s ease-in-out;
+                            &.visible{
+                                opacity:1;
+                            }
+                        }
+                    }
+                    .price-container{
+                        padding:10px;
+                        min-width:75px;
+                    }
+                    .change-container{
+                        padding:10px;
+                        min-width:75px;
+                    }
+                }
+            }
+            
+        }
+    }
+    
+    .charts-content{
+        overflow:auto;
+        
+        .stock-header{
+            min-height:81px;
+            margin-top:5px;
+        }
+        .chart-container{
+            width:100%;
+            border-radius:3px;
+            
+            canvas{
+                max-width:100%;
+                // max-height:425px;
+            }
+        }
+        
+        #stock-nav{
+            margin-top:20px;
+        }
+    }
+}

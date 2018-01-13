@@ -28,8 +28,8 @@ RUN pip install -r requirements.txt
 COPY ./src/ ./
 
 # Create application subdirectories & read logs
-# RUN mkdir media static logs
-# VOLUME ["$DOCKYARD_SRVHOME/media/", "$DOCKYARD_SRVHOME/logs/"]
+RUN mkdir media static logs
+# VOLUME ["/code/media/", "/code/logs/"]
 
 
 # Go to server project, make entrypoints executable

@@ -4,5 +4,5 @@
 sleep 10
 
 # run Celery worker for our project with Celery configuration stored in Celeryconf
-# su -m myuser -c "celery worker -A celeryconf -Q default -n default@%h"
-celery worker -A celeryconf
+# celery worker -A celeryconf
+su -m myuser -c "celery worker -A celeryconf -Q default -n default@%h"
