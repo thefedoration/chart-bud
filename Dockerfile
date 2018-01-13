@@ -14,6 +14,7 @@ RUN apt-get install -y python python-pip
 RUN apt-get install -y python-dev
 RUN apt-get --help
 RUN apt-get install -y libpq-dev
+RUN apt-get install -y libssl-dev
 # RUN apt-get install -y libmysqlclient-dev
 # RUN apt-get install -y git
 RUN apt-get install -y vim

@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='stock',
             name='market_cap',
-            field=models.PositiveIntegerField(default=0),
+            field=models.BigIntegerField(default=0),
         ),
         migrations.AddField(
             model_name='stock',
@@ -40,6 +40,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='stock',
             name='volume',
-            field=models.PositiveIntegerField(default=0),
+            field=models.BigIntegerField(default=0),
         ),
     ]

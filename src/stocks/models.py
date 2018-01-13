@@ -79,13 +79,13 @@ class Stock(BaseModel):
     ticker = models.CharField(max_length=10, blank=False)
     exchange = models.ForeignKey('Exchange', null=False, blank=False)
     company = models.ForeignKey('Company', null=False, blank=False)
-    market_cap = models.PositiveIntegerField(default=0)
+    market_cap = models.BigIntegerField(default=0)
 
     # today's numbers
     previous_close = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
     open = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
     current = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
-    volume = models.PositiveIntegerField(default=0)
+    volume = models.BigIntegerField(default=0)
 
     # calculated numbers
     daily_diff = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
