@@ -23,14 +23,13 @@ RUN apt-get install -y vim
 # copy over files and install requirements
 RUN mkdir /code
 WORKDIR /code
-ADD ./django_project/requirements.txt /code/
+COPY ./django_project/requirements.txt /code
 RUN pip install -r requirements.txt
-ADD ./django_project/
+COPY ./django_project/ ./
 
 # Create application subdirectories & read logs
 # RUN mkdir media static logs
 # VOLUME ["$DOCKYARD_SRVHOME/media/", "$DOCKYARD_SRVHOME/logs/"]
-
 
 # Port to expose
 EXPOSE 8000
