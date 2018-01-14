@@ -24,6 +24,10 @@ ALLOWED_HOSTS = ['localhost']
 ROOT_URLCONF = 'chartbud.urls'
 WSGI_APPLICATION = 'wsgi.application'
 
+# Setup support for proxy headers
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
