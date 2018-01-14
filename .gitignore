@@ -1,5 +1,5 @@
 .DS_Store
 *.pyc
 *.sqlite3
-chartbud/static/
+src/static/
 

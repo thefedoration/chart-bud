@@ -21,19 +21,14 @@ RUN apt-get install -y vim
 # RUN apt-get install -y mysql-server
 # RUN apt-get install -y nginx
 
-# copy over files and install requirements
-RUN mkdir /code
-WORKDIR /code
-COPY ./config/requirements.txt /code
+# switch working directory, add configs, install requirements
+WORKDIR /app/
+COPY ./config/requirements.txt /app/
 RUN pip install -r requirements.txt
-COPY ./src/ ./
-
-# Go to server project, make entrypoints executable
-RUN ["chmod", "+x", "./run_web.sh", "./run_celery.sh"]
 
 # Create application subdirectories
 # RUN mkdir media static logs
-# VOLUME ["/code/media/", "/code/logs/"]
+# VOLUME ["/app/media/", "/app/logs/"]
 
 # create unprivileged user
 RUN adduser --disabled-password --gecos '' myuser
