@@ -7,7 +7,7 @@ services:
     ports:
         - "8000:8000"
     volumes:
-        # - ./code:/code
+        # - ./src:/src
         - ./config/nginx:/etc/nginx/conf.d
         - ./src/static:/static
     depends_on:
@@ -43,7 +43,6 @@ services:
       dockerfile: Dockerfile
     hostname: web
     command: ./run_web.sh
-    # command: su -m myuser -c "sudo ./run_web.sh"
     # restart: always
     volumes:
       - ./src:/app
@@ -60,7 +59,6 @@ services:
       context: .
       dockerfile: Dockerfile
     command: ./run_celery.sh
-    # command: su -m myuser -c "sudo ./run_celery.sh"
     volumes:
       - ./src:/app
     links:
