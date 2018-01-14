@@ -3,7 +3,8 @@
 # Based on an AMI
 ############################################################
 # Set the base image to use to Ubuntu
-FROM ubuntu:14.04
+# FROM ubuntu:14.04
+FROM python:2.7.14
 
 # Details & Env Vars
 MAINTAINER Fedor Garin
@@ -21,10 +22,13 @@ RUN apt-get install -y vim
 # RUN apt-get install -y mysql-server
 # RUN apt-get install -y nginx
 
+RUN apt-get install -y openssl
+RUN openssl version
+
 # switch working directory, add configs, install requirements
 WORKDIR /app/
 COPY ./config/requirements.txt /app/
-RUN pip install -r requirements.txt
+RUN pip install --upgrade -r requirements.txt
 
 # Create application subdirectories
 # RUN mkdir media static logs

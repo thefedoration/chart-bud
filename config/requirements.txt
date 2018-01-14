@@ -1,6 +1,6 @@
 Django>=1.8,<2.0
 celery
-# cryptography==1.9
+# certifi
 django_compressor
 django-filter
 django-libsass
@@ -8,6 +8,5 @@ djangorestframework
 gunicorn
 jsonfield
 psycopg2
-# pyopenssl
 redis
 requests
