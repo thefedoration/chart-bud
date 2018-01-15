@@ -137,7 +137,7 @@ class TimeseriesResult(BaseModel):
 
     stock = models.ForeignKey('Stock', null=False, blank=False)
     time_period = models.CharField(
-        max_length=2,
+        max_length=7,
         choices=TIME_PERIOD_CHOICES,
         blank=False, null=False)
     result = JSONField()

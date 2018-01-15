@@ -28,7 +28,7 @@ RUN openssl version
 # switch working directory, add configs, install requirements
 WORKDIR /app/
 COPY ./config/requirements.txt /app/
-RUN pip install --upgrade -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Create application subdirectories
 # RUN mkdir media static logs

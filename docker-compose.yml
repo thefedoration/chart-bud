@@ -54,6 +54,20 @@ services:
     expose:
       - "8000"
 
+  celerybeat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: celery -A celeryconf beat -l INFO
+    volumes:
+      - ./src:/app
+    links:
+      - db
+      - rabbit
+      - redis
+    depends_on:
+      - rabbit
+  
   worker:
     build:
       context: .
