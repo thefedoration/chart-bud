@@ -4,7 +4,7 @@ from celeryconf import app
 from .models import TimeseriesResult, Stock
 
 @app.task
-def update_stocks(num_to_update=20):
+def update_stocks(num_to_update=100):
     """
     Updates the most out of date stocks
     """
@@ -16,7 +16,7 @@ def update_stocks(num_to_update=20):
             stock.open = decimal.Decimal(float(data[-1]['open']))
             stock.volume = decimal.Decimal(float(data[-1]['volume']))
             stock.current = decimal.Decimal(float(data[-1]['close']))
-            print "updated stock: ", stock
+            print "updated stock: %s" % stock.ticker
 
             # if we have 2 points, first one is yesterday's close
             if len(data) >= 2:
@@ -24,7 +24,7 @@ def update_stocks(num_to_update=20):
 
             stock.save()
         else:
-            print "missing", stock
+            print "missing data: %s" % stock.ticker
 
 
 @app.task
@@ -34,5 +34,5 @@ def update_results(num_to_update=200):
     """
     for result in TimeseriesResult.objects.filter(is_active=True).order_by('datetime_updated')[:num_to_update]:
         result.get_updated_result()
-        print "updated timeseries: ", result
+        print "updated timeseries: %s (%s)" % (result.stock.ticker, result.time_period)
     

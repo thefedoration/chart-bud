@@ -1,5 +1,7 @@
 #!/bin/sh
 
+sleep 5
+
 # migrations
 su -m myuser -c "python manage.py makemigrations"
 su -m myuser -c "python manage.py migrate"

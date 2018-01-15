@@ -4,8 +4,11 @@ django_compressor
 django-filter
 django-libsass
 djangorestframework
+googlefinance #
 gunicorn
+iexfinance #
 jsonfield
 psycopg2
+realtime-stock #
 redis
 requests

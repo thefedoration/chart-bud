@@ -1,1 +1,3 @@
-from alphavantage import AlphavantageBackend
+from __future__ import absolute_import
+
+from .alphavantage import AlphavantageBackend

@@ -138,7 +138,7 @@ chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', '$ti
             if ($scope.refreshOn){
                 $scope.updateCurrentStocks();
             }
-        }, 1000 * 10);
+        }, 1000 * 20);
         
         // Make sure that the interval is destroyed
         $scope.$on('$destroy', function() {
