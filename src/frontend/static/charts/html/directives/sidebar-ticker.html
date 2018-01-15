@@ -7,7 +7,7 @@
         <h5 class="uppercase margin-0">{{stock.ticker}}</h5>
         <div class="dim">{{stock.company.name}}</div>
     </div>
-    <div class="price-container">
+    <div class="price-container" ng-class="{'white-dim': stock.current=='0.00'}">
         <h5 class="uppercase margin-0 center-align">
             {{stock.exchange.currency.character}}{{stock.current}}
         </h5>

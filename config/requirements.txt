@@ -4,11 +4,11 @@ django_compressor
 django-filter
 django-libsass
 djangorestframework
-googlefinance #
+# googlefinance # backend
 gunicorn
-iexfinance #
+# iexfinance # backend
 jsonfield
 psycopg2
-realtime-stock #
+# realtime-stock # backend
 redis
 requests

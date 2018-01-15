@@ -5,7 +5,6 @@
 # Set the base image to use to Ubuntu
 # FROM ubuntu:14.04
 FROM python:2.7.14
-# FROM python:3
 
 # Details & Env Vars
 MAINTAINER Fedor Garin

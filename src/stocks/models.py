@@ -82,14 +82,14 @@ class Stock(BaseModel):
     market_cap = models.BigIntegerField(default=0)
 
     # today's numbers
-    previous_close = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
-    open = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
-    current = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
-    volume = models.BigIntegerField(default=0)
+    previous_close = models.DecimalField(default=0.0, max_digits=10, decimal_places=2, null=True)
+    open = models.DecimalField(default=0.0, max_digits=10, decimal_places=2, null=True)
+    current = models.DecimalField(default=0.0, max_digits=10, decimal_places=2, null=True)
+    volume = models.BigIntegerField(default=0, null=True)
 
     # calculated numbers
-    daily_diff = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
-    daily_diff_percent = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
+    daily_diff = models.DecimalField(default=0.0, max_digits=10, decimal_places=2, null=True)
+    daily_diff_percent = models.DecimalField(default=0.0, max_digits=10, decimal_places=2, null=True)
 
     @property
     def full_ticker(self):

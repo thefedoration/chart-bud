@@ -5,4 +5,4 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         from stocks.tasks import update_stocks
-        update_stocks.delay(num_to_update=1000)
+        update_stocks.delay(num_to_update=1000, ordering='-market_cap')
