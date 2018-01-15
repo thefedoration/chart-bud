@@ -9,7 +9,7 @@ class AlphavantageBackend(BaseBackend):
     Exposes API common to all stock backends
     """
 
-    valid_timespans = ["current", "1d", "5d", "1m", "3m", "1y", "max"]
+    valid_timespans = ["current", "1d", "5d", "2w", "1m", "3m", "1y", "max"]
 
     def __init__(self, ticker, *args, **kwargs):
         self.ticker = ticker
@@ -27,6 +27,8 @@ class AlphavantageBackend(BaseBackend):
             return self.get_1d_series()
         elif timespan == "5d":
             return self.get_5d_series()
+        elif timespan == "2w":
+            return self.get_2w_series()
         elif timespan == "1m":
             return self.get_1m_series()
         elif timespan == "3m":
@@ -70,6 +72,16 @@ class AlphavantageBackend(BaseBackend):
         if key in r.json():
             data = self._clean_data(r.json()[key])
             data = [d for d in data if datetime.datetime.strptime(d["timestamp"], '%Y-%m-%d %H:%M:%S') > datetime.datetime.now() - datetime.timedelta(days=7)]
+            return data
+
+    def get_2w_series(self, interval="60min"):
+        r = requests.get('%s?function=%s&symbol=%s&interval=%s&apikey=%s&outputsize=full' % (
+            self.rootUrl, "TIME_SERIES_INTRADAY", self.ticker, interval, self.apikey
+        ))
+        key = "Time Series (%s)" % interval
+        if key in r.json():
+            data = self._clean_data(r.json()[key])
+            data = [d for d in data if datetime.datetime.strptime(d["timestamp"], '%Y-%m-%d %H:%M:%S') > datetime.datetime.now() - datetime.timedelta(days=14)]
             return data
 
     def get_1m_series(self):

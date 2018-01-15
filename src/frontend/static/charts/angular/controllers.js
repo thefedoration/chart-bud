@@ -138,7 +138,7 @@ chartsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$state', '$ti
             if ($scope.refreshOn){
                 $scope.updateCurrentStocks();
             }
-        }, 1000 * 20);
+        }, 1000 * 10);
         
         // Make sure that the interval is destroyed
         $scope.$on('$destroy', function() {
@@ -161,7 +161,7 @@ chartsControllers.controller('stockCtrl', ['$rootScope', '$scope', '$state', '$t
         // PARAMS
         ///////////////////////////////
         $scope.state = $state;
-        $scope.timespans = ["1d", "5d", "1m", "3m", "1y", "max"];
+        $scope.timespans = ["1d", "5d", "2w", "3m", "1y", "max"];
         $scope.chartPromise; // inits promise used in querying for chart
 
         // METHODS

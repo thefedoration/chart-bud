@@ -43,7 +43,7 @@ services:
       dockerfile: Dockerfile
     hostname: web
     command: ./run_web.sh
-    # restart: always
+    restart: always
     volumes:
       - ./src:/app
       - ./src/static:/static

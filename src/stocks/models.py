@@ -129,6 +129,7 @@ class TimeseriesResult(BaseModel):
         ('current', 'Current'),
         ('1d', 'One Day'),
         ('5d', 'Five Days'),
+        ('2w', 'Two Weeks'),
         ('1m', 'One Month'),
         ('3m', 'Three Months'),
         ('1y', 'One Year'),
