@@ -22,7 +22,7 @@ app.conf.timezone = 'US/Eastern'
 app.conf.beat_schedule = {
     'update_stocks': {
         'task': 'stocks.tasks.update_stocks',
-        'schedule': crontab(day_of_week='mon-fri', minute='*'),
+        'schedule': crontab(day_of_week='mon-fri', hour='8-18', minute='*'),
     },
     'update_results': {
         'task': 'stocks.tasks.update_results',

@@ -4,7 +4,7 @@ from celeryconf import app
 from .models import TimeseriesResult, Stock
 
 @app.task
-def update_stocks(num_to_update=100, ordering='datetime_updated'):
+def update_stocks(num_to_update=20, ordering='datetime_updated'):
     """
     Updates the most out of date stocks
     """
