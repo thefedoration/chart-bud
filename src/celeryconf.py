@@ -24,8 +24,8 @@ app.conf.beat_schedule = {
         'task': 'stocks.tasks.update_stocks',
         'schedule': crontab(day_of_week='mon-fri', hour='8-18', minute='*'),
     },
-    'update_results': {
-        'task': 'stocks.tasks.update_results',
-        'schedule': crontab(minute='*/10'),
-    },
+    # 'update_results': {
+    #     'task': 'stocks.tasks.update_results',
+    #     'schedule': crontab(minute='*/10'),
+    # },
 }

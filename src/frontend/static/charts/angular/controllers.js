@@ -191,7 +191,7 @@ chartsControllers.controller('stockCtrl', ['$rootScope', '$scope', '$state', 'St
         $scope.drawChart = function(){
             new TradingView.widget({
                 "autosize": true,
-                "symbol": "TSX:" + $scope.stock.ticker,
+                "symbol": $scope.stock.exchange.symbol + ":" + $scope.stock.ticker,
                 "interval": "D",
                 "timezone": "Etc/UTC",
                 "theme": "Dark",
@@ -200,7 +200,7 @@ chartsControllers.controller('stockCtrl', ['$rootScope', '$scope', '$state', 'St
                 "toolbar_bg": "rgb(19,23,35)",
                 "enable_publishing": false,
                 "save_image": false,
-                // "details": true,
+                "details": true,
                 "hideideas": true,
                 "container_id": "tradingview-widget"
             });
