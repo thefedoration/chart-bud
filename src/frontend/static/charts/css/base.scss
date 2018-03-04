@@ -2,7 +2,7 @@
     .charts-sidebar{
         width:350px;
         overflow:hidden;
-        border-right:1px solid $white-shadow;
+        // border-right:1px solid $white-shadow;
         padding-bottom:0;
         
         .sidebar-section{
@@ -171,7 +171,7 @@
                     transition: border-right-color 0.5s ease-in-out;
                     
                     &:hover, &.current{
-                        background-color: $shadow;
+                        background-color: $white-shadow;
                     }
                     
                     &.increasing{
@@ -215,24 +215,23 @@
     }
     
     .charts-content{
-        overflow:auto;
+        overflow:hidden;
         
-        .stock-header{
-            min-height:81px;
-            margin-top:5px;
-        }
-        .chart-container{
-            width:100%;
-            border-radius:3px;
-            
-            canvas{
-                max-width:100%;
-                // max-height:425px;
-            }
-        }
-        
-        #stock-nav{
-            margin-top:20px;
-        }
+        // .stock-header{
+        //     min-height:81px;
+        //     margin-top:5px;
+        // }
+        // .chart-container{
+        //     width:100%;
+        //     border-radius:3px;
+        // 
+        //     canvas{
+        //         max-width:100%;
+        //     }
+        // }
+        // 
+        // #stock-nav{
+        //     margin-top:20px;
+        // }
     }
 }
