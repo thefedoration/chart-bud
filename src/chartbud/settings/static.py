@@ -14,10 +14,10 @@ STATICFILES_FINDERS = (
     # other finders..
     'compressor.finders.CompressorFinder',
 )
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static"),
-#     # '/var/www/static/',
-# ]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    # '/var/www/static/',
+]
 # this busts the user cache when we change a file
 STATICFILES_STORAGE = \
     'django.contrib.staticfiles.storage.CachedStaticFilesStorage'

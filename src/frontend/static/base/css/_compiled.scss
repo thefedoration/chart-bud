@@ -2,15 +2,15 @@
 @import "variables.scss";
 
 // fonts
-@import "vendored/font-awesome-4.7.0.min";
+@import "../../base/css/vendored/font-awesome-4.7.0.min.css";
 
 // vendored
-@import "vendored/flexbox-layout";
-@import "vendored/remodal";
-@import "vendored/remodal-default-theme";
-// @import "vendored/tooltip";
+@import "../../base/css/vendored/flexbox-layout.css";
+@import "../../base/css/vendored/remodal.css";
+@import "../../base/css/vendored/remodal-default-theme.css";
+// @import "vendored/tooltip.css";
 
 // styles
-@import "normalize";
+@import "../../base/css/normalize.css";
 @import "typography.scss";
 @import "base.scss";

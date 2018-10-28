@@ -1,7 +1,7 @@
 Django>=1.8,<2.0
 celery
 django_compressor
-django-filter
+django-filter==1.1
 django-libsass
 djangorestframework
 # googlefinance # backend
